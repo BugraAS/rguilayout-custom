@@ -1,0 +1,28 @@
+rGuiLayoutEditor
+	left-side
+		tree-view of objects
+	right-side
+		selected-object
+			details of the object
+	top-side
+		options about current tool
+		list-of-tools
+			cursor (select/move)
+			new object
+				list of objects
+		grid-increment
+			increment can be halved or doubled with '[', ']' keys
+	bottom-side
+		status
+			grid increment
+			rectangle stats of current gui object
+			object type of current gui object
+			space occupied by current gui layout
+	workspace (center)
+		movable origin (0,0)
+			origin moves when wasd or arrow-keys are pressed when nothing is selected
+				moving everything else along with it
+			origin starts at a space that does not intersect with editor gui
+			origin is outlined with thick lines going through y=0 and x=0
+		groupable objects
+
