@@ -8,7 +8,7 @@
 MainLoop* MainLoop::singleton = nullptr;
 
 MainLoop::MainLoop()
-: processes(), window(0,0)
+: processes(), window(800,450)
 {
 #ifndef NDEBUG
     SetTraceLogLevel(LOG_DEBUG);
@@ -17,6 +17,9 @@ MainLoop::MainLoop()
     singleton = this;
     SetExitKey(0);
     window.SetTargetFPS(60);
+#if defined(PLATFORM_DESKTOP)
+    window.SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+#endif
 
     processes.push_back(std::make_unique<RendererDefault>());
 
