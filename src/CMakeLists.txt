@@ -5,15 +5,11 @@ project(rayGuiLayoutEditor LANGUAGES C CXX)
 add_executable(${PROJECT_NAME} "")
 
 add_subdirectory(deps)
+add_subdirectory(modules)
 
 target_sources(
     ${PROJECT_NAME} PRIVATE
     main.cpp
-)
-
-target_include_directories(
-    ${PROJECT_NAME} PRIVATE
-    include
 )
 
 target_link_libraries(
