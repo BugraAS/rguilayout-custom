@@ -1,9 +1,10 @@
 #pragma once
 
 namespace STATE {
-    enum STATES
+    enum ENUM
     {
         BASE,
+        TYPING,
         SAVING,
         EXITING,
         NUM_STATES

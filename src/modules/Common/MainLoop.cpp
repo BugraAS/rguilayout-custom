@@ -1,4 +1,5 @@
 #include "MainLoop.hpp"
+#include "InputProcessor.hpp"
 #include "RendererDefault.hpp"
 #include "Window.hpp"
 #include "raylib.h"
@@ -21,6 +22,7 @@ MainLoop::MainLoop()
     window.SetConfigFlags(FLAG_WINDOW_RESIZABLE);
 #endif
 
+    processes.push_back(std::make_unique<InputProcessor>());
     processes.push_back(std::make_unique<RendererDefault>());
 
     return;

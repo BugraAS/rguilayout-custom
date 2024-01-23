@@ -2,5 +2,5 @@
 
 #include "State.hpp"
 namespace G {
-    extern STATE::STATES state;
+    extern STATE::ENUM state;
 }

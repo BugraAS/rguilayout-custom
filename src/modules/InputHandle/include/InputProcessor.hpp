@@ -7,43 +7,40 @@
 #include <map>
 #include <functional>
 #include "Runnable.hpp"
-#include "Event.hpp"
+#include "State.hpp"
 
-/**
- * @brief Enum for built-in events
- * 
- */
-namespace InputEvent{
+
+namespace KeyFlag{
     enum ENUM{
-        KEY_UP,
-        KEY_DOWN,
-        KEY_RIGHT,
-        KEY_LEFT,
-        CLICK_LEFT,
-        CLICK_RIGHT,
+        L_SHIFT = 1 << 16,
+        R_SHIFT = 1 << 17,
+        L_CTRL = 1 << 18,
+        R_CTRL = 1 << 19,
     };
-};
+}
+
+typedef void (*InputHandler)();
 
 /**
  * @class InputHandle
  * @brief Singleton class for handling input events.
  * @details The InputHandle class manages key mappings and processes input events.
  */
-class InputHandle : public Runnable {
+class InputProcessor : public Runnable {
 private:
-    static InputHandle* singleton; ///< Static pointer to the singleton instance.
-    std::map<int, Event> keyMap; ///< Map to store key mappings.
+    static InputProcessor* singleton; ///< Static pointer to the singleton instance.
+    std::map<int, InputHandler> keyMap[STATE::NUM_STATES]; ///< Map to store key mappings.
 
 public:
     /**
      * @brief Constructor: Initialize keyMap and set singleton.
      */
-    InputHandle();
+    InputProcessor();
 
     /**
      * @brief Destructor: Cleanup and set the singleton instance to null.
      */
-    ~InputHandle();
+    ~InputProcessor();
 
     /**
      * @brief Process inputs - Placeholder comment for future implementation.
@@ -56,13 +53,13 @@ public:
      * @param keyCode The key code to be mapped.
      * @param eventType The input event type to be associated with the key.
      */
-    static void mapKey(int keyCode, InputEvent::ENUM eventType);
+    static void mapKey(STATE::ENUM state, int keyCode, InputHandler handler);
 
     /**
      * @brief Unmap a key, removing it from the keyMap.
      * @param keyCode The key code to be unmapped.
      */
-    static void unmapKey(int keyCode);
+    static void unmapKey(STATE::ENUM state, int keyCode);
 
     /**
      * @brief Clear all key mappings from the keyMap.
@@ -73,5 +70,5 @@ public:
      * @brief Static function to get the singleton instance of InputHandle.
      * @return Pointer to the singleton instance of InputHandle.
      */
-    static inline InputHandle* getSingleton(){return singleton;}
+    static inline InputProcessor* getSingleton(){return singleton;}
 };

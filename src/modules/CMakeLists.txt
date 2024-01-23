@@ -1,5 +1,4 @@
 add_subdirectory(Common)
-add_subdirectory(EventQueue)
 add_subdirectory(InputHandle)
 add_subdirectory(RayGui)
 add_subdirectory(Renderer)
