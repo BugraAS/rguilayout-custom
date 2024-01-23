@@ -39,4 +39,12 @@ rGuiLayoutEditor
 				Only the active item is interactable when it is designated as active
 			hotkeys have "when" condition
 				when only considers the specific object that is active. It is invalid if a child of the condition is activate.
+		Locking
+			When?
+				a pop up shows up
+				or, when your state doesn't match the predesignated state
+		State
+			BASE
+			SAVING
+			EXITING
 

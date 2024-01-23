@@ -36,6 +36,7 @@ void setFontSize(int size);
 void setStyle(GUI_STYLE styleId);
 
 void GuiTabBarNoClose(Rectangle bounds, const char **text, int count, int *active);
+int GuiPMSpinner(Rectangle bounds, const char *text, int *value, int minValue, int maxValue, bool editMode);
 
 #if defined(__cplusplus)
 }}

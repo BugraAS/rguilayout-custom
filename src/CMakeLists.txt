@@ -7,18 +7,20 @@ add_executable(${PROJECT_NAME} "")
 add_subdirectory(deps)
 add_subdirectory(modules)
 
-target_sources(
-    ${PROJECT_NAME} PRIVATE
-    main.cpp
+target_link_libraries(
+	${PROJECT_NAME} PRIVATE
+	raylib
+	raylib_cpp
+	raygui
+	rpng
+	tinyfiledialogs
 )
 
-target_link_libraries(
-    ${PROJECT_NAME} PRIVATE
-    raylib
-    raylib_cpp
-    raygui
-    rpng
-    tinyfiledialogs
+add_subdirectory(tests)
+
+target_sources(
+	${PROJECT_NAME} PRIVATE
+	main.cpp
 )
 
 # Web Configurations
@@ -32,11 +34,11 @@ if (${PLATFORM} STREQUAL "Web")
 		"-sASSERTIONS=1"
 		"-sWASM=1"
 		"-sASYNCIFY"
-		# "-sALLOW_MEMORY_GROWTH"
+		"-sALLOW_MEMORY_GROWTH"
 		# "--preload-file=${RESOURCE_DIRECTORY}"
 #		"-sMAX_WEBGL_VERSION=2"
 		"-sGL_ENABLE_GET_PROC_ADDRESS"
-		$<$<NOT:$<CONFIG:Debug>>:--shell-file=${WEB_SHELL_FILE}>
+		# $<$<NOT:$<CONFIG:Debug>>:--shell-file=${WEB_SHELL_FILE}>
 		)
 endif()
 
