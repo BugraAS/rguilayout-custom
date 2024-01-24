@@ -12,6 +12,7 @@
 
 RendererDefault::RendererDefault() {
   Workspace::Resize();
+  raygui::GuiEnableTooltip();
 }
 
 void RendererDefault::process() {
@@ -21,10 +22,10 @@ void RendererDefault::process() {
     if(G::state != STATE::BASE) raygui::GuiLock();
     Workspace::Draw();
 
-    TopMenu::Draw();
     BottomMenu::Draw();
     RightMenu::Draw();
     LeftMenu::Draw();
+    TopMenu::Draw();
     if(G::state != STATE::BASE) raygui::GuiUnlock();
 
     if (G::state == STATE::EXITING) {
