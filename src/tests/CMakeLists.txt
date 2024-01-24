@@ -24,7 +24,15 @@ target_link_libraries(mytests PRIVATE
 include(GoogleTest)
 gtest_discover_tests(mytests)
 
-add_test(
-    NAME mytests
-    COMMAND node "${CMAKE_CURRENT_BINARY_DIR}/mytests.js"
-)
+# Web Configurations
+if (${PLATFORM} STREQUAL "Web")
+    add_test(
+        NAME mytests
+        COMMAND node "${CMAKE_CURRENT_BINARY_DIR}/mytests.js"
+    )
+else()
+    add_test(
+        NAME mytests
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/mytests
+    )
+endif()

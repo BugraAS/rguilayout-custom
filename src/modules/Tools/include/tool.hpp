@@ -1,14 +1,12 @@
 #pragma once
 
-namespace TOOLS
-{
-    enum ENUM
-    {
-        SELECT,
-        PAN,
-        CREATE,
-        NUM_TOOLS
-    };
-
-    extern ENUM current;
-}
+#include "enum.h"
+BETTER_ENUM(TOOL, int,
+    SELECT,
+    PAN,
+    CREATE,
+    INTERACT,
+    MOVE,
+    RESIZE,
+    NUM_TOOLS
+)
