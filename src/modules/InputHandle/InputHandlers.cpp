@@ -4,11 +4,14 @@
 #include "State.hpp"
 #include "raylib.h"
 
-static void EXITING_ESCAPE(){
+static void EXITING_ESCAPE(){ //BUG: This never gets called for some reason?
     G::state = STATE::BASE;
 }
 static void EXITING_ENTER(){
     MainLoop::Close();
+}
+static void BASE_ESCAPE(){
+    G::state = STATE::EXITING;
 }
 
 InputProcessor::InputProcessor()
@@ -16,6 +19,7 @@ InputProcessor::InputProcessor()
 {
     singleton = this;
 
+    keyMap[STATE::BASE][KEY_ESCAPE] = BASE_ESCAPE;
     keyMap[STATE::EXITING][KEY_ESCAPE] = EXITING_ESCAPE;
     keyMap[STATE::EXITING][KEY_ENTER] = EXITING_ENTER;
 }

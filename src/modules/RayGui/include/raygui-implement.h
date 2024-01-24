@@ -1,14 +1,12 @@
 #pragma once
 
-
-
 #include "raylib.h"
 #if defined(__cplusplus)
+#include "enum.h"
 namespace raygui {
-    #include "raygui.h"
-#else
-    #include "raygui.h"
 #endif
+#include "raygui.h"
+
 #if defined(__cplusplus)
 extern "C" {            // Prevents name mangling of functions
 #endif
@@ -37,6 +35,8 @@ void setStyle(GUI_STYLE styleId);
 
 void GuiTabBarNoClose(Rectangle bounds, const char **text, int count, int *active);
 int GuiPMSpinner(Rectangle bounds, const char *text, int *value, int minValue, int maxValue, bool editMode);
+// Text should be in the form "label1;tooltop1;label2;tooltip2;.."
+int GuiToggleGroupTooltip(Rectangle bounds, const char *text, int *active);
 
 #if defined(__cplusplus)
 }}

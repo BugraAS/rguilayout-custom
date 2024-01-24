@@ -9,7 +9,7 @@
 MainLoop* MainLoop::singleton = nullptr;
 
 MainLoop::MainLoop()
-: processes(), window(800,450)
+: processes(), window()
 {
 #ifndef NDEBUG
     SetTraceLogLevel(LOG_DEBUG);
@@ -18,9 +18,12 @@ MainLoop::MainLoop()
     singleton = this;
     SetExitKey(0);
     window.SetTargetFPS(60);
+    int wflags = 0;
 #if defined(PLATFORM_DESKTOP)
-    window.SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    wflags |= FLAG_WINDOW_RESIZABLE;
 #endif
+    //HACK: This will probably cause a problem in web build
+    window.Init(0,0,"Bloody",wflags);
 
     processes.push_back(std::make_unique<InputProcessor>());
     processes.push_back(std::make_unique<RendererDefault>());

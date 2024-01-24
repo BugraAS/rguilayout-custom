@@ -16,6 +16,59 @@
 #include "sunny/style_sunny.h"
 #include "terminal/style_terminal.h"
 
+
+// Toggle Group control, returns toggled button codepointIndex
+// Text should be in the form "label1;tooltop1;label2;tooltip2;.."
+int GuiToggleGroupTooltip(Rectangle bounds, const char *text, int *active)
+{
+    #if !defined(RAYGUI_TOGGLEGROUP_MAX_ITEMS)
+        #define RAYGUI_TOGGLEGROUP_MAX_ITEMS    32
+    #endif
+
+    int result = 0;
+    float initBoundsX = bounds.x;
+
+    int temp = 0;
+    if (active == NULL) active = &temp;
+
+    bool toggle = false;    // Required for individual toggles
+
+    // Get substrings items from text (items pointers)
+    int rows[RAYGUI_TOGGLEGROUP_MAX_ITEMS] = { 0 };
+    int itemCount = 0;
+    const char **items = GuiTextSplit(text, ';', &itemCount, rows);
+
+    int prevRow = rows[0];
+
+    for (int i = 0; i < itemCount/2; i++)
+    {
+        if (prevRow != rows[i])
+        {
+            bounds.x = initBoundsX;
+            bounds.y += (bounds.height + GuiGetStyle(TOGGLE, GROUP_PADDING));
+            prevRow = rows[i];
+        }
+
+        GuiSetTooltip(items[2*i+1]);
+        if (i == (*active))
+        {
+            toggle = true;
+            GuiToggle(bounds, items[2*i], &toggle);
+        }
+        else
+        {
+            toggle = false;
+            GuiToggle(bounds, items[2*i], &toggle);
+            if (toggle) *active = i;
+        }
+        GuiSetTooltip(NULL);
+
+        bounds.x += (bounds.width + GuiGetStyle(TOGGLE, GROUP_PADDING));
+    }
+
+    return result;
+}
+
 int GuiPMSpinner(Rectangle bounds, const char *text, int *value, int minValue, int maxValue, bool editMode)
 {
     int result = 1;
@@ -52,13 +105,8 @@ int GuiPMSpinner(Rectangle bounds, const char *text, int *value, int minValue, i
         }
     }
 
-#if defined(RAYGUI_NO_ICONS)
-    if (GuiButton(leftButtonBound, "<")) tempValue--;
-    if (GuiButton(rightButtonBound, ">")) tempValue++;
-#else
-    if (GuiButton(leftButtonBound, GuiIconText(ICON_ARROW_LEFT_FILL, NULL))) tempValue--;
-    if (GuiButton(rightButtonBound, GuiIconText(ICON_ARROW_RIGHT_FILL, NULL))) tempValue++;
-#endif
+    if (GuiButton(leftButtonBound, "-")) tempValue--;
+    if (GuiButton(rightButtonBound, "+")) tempValue++;
 
     if (!editMode)
     {
