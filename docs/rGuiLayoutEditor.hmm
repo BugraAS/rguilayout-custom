@@ -5,6 +5,7 @@ rGuiLayoutEditor
 		right-side
 			selected-object
 				details of the object
+			list of gui objects
 		top-side
 			options about current tool
 			list-of-tools
@@ -13,6 +14,7 @@ rGuiLayoutEditor
 					list of objects
 			grid-increment
 				increment can be halved or doubled with '[', ']' keys
+			File options
 		bottom-side
 			status
 				grid increment
