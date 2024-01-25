@@ -38,7 +38,7 @@ void GuiTabBarNoClose(Rectangle bounds, const char **text, int count, int *activ
 int GuiPMSpinner(Rectangle bounds, const char *text, int *value, int minValue, int maxValue, bool editMode);
 // Text should be in the form "label1;tooltop1;label2;tooltip2;.."
 int GuiToggleGroupTooltip(Rectangle bounds, const char *text, int *active);
-
+void _GuiTooltip(Rectangle controlRec);
 #if defined(__cplusplus)
 }}
 #endif

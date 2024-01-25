@@ -11,7 +11,8 @@ BETTER_ENUM(GUITYPE, int,
     BUTTON,
     TOGGLE,
     PANEL,
-    TABS
+    TABS,
+    NUM_GUIS
 )
 
 class Node; //fix circular dependency problem

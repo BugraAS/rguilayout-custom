@@ -16,6 +16,10 @@
 #include "sunny/style_sunny.h"
 #include "terminal/style_terminal.h"
 
+void _GuiTooltip(Rectangle controlRec){
+    GuiTooltip(controlRec);
+}
+
 void GuiCrossair(Vector2 pos){
     Color color = GetColor(GuiGetStyle(DEFAULT, BORDER_COLOR_FOCUSED));
     Vector2 sDim = {GetScreenWidth(), GetScreenHeight()};

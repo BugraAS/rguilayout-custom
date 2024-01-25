@@ -4,10 +4,10 @@
 #include "PString.hpp"
 class Button : public GUI{
     private:
-    PString text{};
+    PString text;
     public:
     virtual std::vector<Param*> getParams() override;
     virtual void draw() override;
 
-    inline Button() : GUI(GUITYPE::BUTTON) {}
+    inline Button() : GUI(GUITYPE::BUTTON), text(type._to_string()) {}
 };
