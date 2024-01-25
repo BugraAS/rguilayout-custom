@@ -16,6 +16,9 @@ RendererDefault::RendererDefault() {
 }
 
 void RendererDefault::process() {
+  if(IsWindowResized()){
+    Workspace::Resize();
+  }
   BeginDrawing();
     ClearBackground(raygui::getStyleColor());
 
@@ -28,6 +31,11 @@ void RendererDefault::process() {
     TopMenu::Draw();
 
     raygui::GuiUnlock();
+
+    if(G::state._value == STATE::BASE){
+      void (*tool)() = G::tools[G::curTool];
+      if(tool) tool();
+    }
 
     if (G::state._value == STATE::EXITING) {
       int result = raygui::GuiMessageBox(

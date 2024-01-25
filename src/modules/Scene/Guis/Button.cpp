@@ -6,5 +6,5 @@ std::vector<Param*> Button::getParams(){
     return {&rectangle, &text};
 }
 void Button::draw(){
-    raygui::GuiButton(getRectangle(), (char*)text.getData());
+    raygui::GuiButton(getGRectangle(), (char*)text.getData());
 }

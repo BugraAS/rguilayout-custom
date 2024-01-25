@@ -34,11 +34,7 @@ void RightMenu::Draw() {
 
 static void drawSampleGUI(Rectangle rec, GUITYPE type){
   bool locked =raygui::GuiIsLocked();
-  GUI *gui = nullptr;
-  switch (type._value) {
-    case GUITYPE::BUTTON: gui = new Button(); break;
-    default: break;
-  }
+  GUI *gui = GUI::_from_type(type);
   if(gui==nullptr) return;
 
   gui->setRectangle(rec);
@@ -76,7 +72,7 @@ static void CreateMenu(){
     sDim.x-width, (float)TopMenu::width,
     width, sDim.y-BottomMenu::width - TopMenu::width
   };
-  static Vector2 itemDim{width - 24, bounds.width/2.0f - 8};
+  static Vector2 itemDim{width - 24, width/2.0f - 8};
   Rectangle content{
     bounds.x, bounds.y + 32,
     bounds.width - 16, (itemDim.y+margin)*GUITYPE::NUM_GUIS
@@ -97,4 +93,16 @@ static void CreateMenu(){
     drawSampleGUI(createPalette[GUITYPE::BUTTON],GUITYPE::BUTTON);
   }
   EndScissorMode();
+  if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) & CheckCollisionPointRec(GetMousePosition(), sRec)) {
+    int found = -1;
+    for(int i: GUITYPE::_values())
+      if(CheckCollisionPointRec(GetMousePosition(), createPalette[i])){
+        found = i;
+        break;
+      }
+    if(found != -1){
+      Tool::createFlag = true;
+      Tool::createChoice = GUITYPE::_from_integral_unchecked(found);
+    }
+  }
 }

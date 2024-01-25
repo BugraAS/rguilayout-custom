@@ -1,7 +1,16 @@
 #include "GUI.hpp"
+#include "Button.hpp"
 #include "raylib.h"
 #include "raylib-wrap.hpp"
 #include <memory>
+
+Rectangle GUI::getGRectangle(){
+    Vector2 pos = getGPos();
+    Rectangle rec = getRectangle();
+    rec.x = pos.x;
+    rec.y = pos.y;
+    return rec;
+}
 
 Vector2 GUI::getGPos(){
     Vector2 temp = getPos();
@@ -20,9 +29,11 @@ Vector2 GUI::getDim(){
 void GUI::setParent(Node* parent){
     if(parent == this->parent)
         return;
-    this->parent->removeGui(this);
+    if(this->parent)
+        this->parent->removeGui(this);
     if(parent)
         parent->getGuis().push_back(std::unique_ptr<GUI>(this));
+    this->parent = parent;
 }
 
 GUI::~GUI(){
@@ -52,4 +63,11 @@ void GUI::setDim(Vector2 size){
     temp.width = size.x;
     temp.height = size.y;
     setRectangle(temp);
+}
+
+GUI* GUI::_from_type(GUITYPE type){
+    switch (type._value) {
+        case GUITYPE::BUTTON: return new Button();
+        default: return nullptr;
+    }
 }

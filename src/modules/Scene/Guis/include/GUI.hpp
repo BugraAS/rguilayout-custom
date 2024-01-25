@@ -25,6 +25,8 @@ class GUI{
     Node* parent{nullptr};
 
     public:
+    static GUI* _from_type(GUITYPE type);
+
     virtual std::vector<Param*> getParams() = 0;
     virtual void draw() = 0;
 
@@ -36,6 +38,7 @@ class GUI{
     inline const char* getTypeName() const {return type._to_string();}
     inline Node* getParent(){return parent;}
 
+    Rectangle getGRectangle();
     Vector2 getGPos();
     void setParent(Node* parent);
     void offsetPos(Vector2 delta);

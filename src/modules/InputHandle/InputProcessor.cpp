@@ -23,12 +23,6 @@ void InputProcessor::process(){
             handler();
     }
 
-    if(G::state._value == STATE::BASE){
-        void (*tool)() = G::tools[G::curTool];
-        if(tool)
-            tool();
-    }
-
     if(WindowShouldClose())
         G::state = STATE::EXITING;
 }

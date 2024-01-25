@@ -1,8 +1,8 @@
 #pragma once
 
+#include "raylib.h"
 namespace Workspace {
-    extern int size[2];
-    extern int pos[2];
+    extern Rectangle rec;
     extern float increment;
     extern bool gridVisible;
 

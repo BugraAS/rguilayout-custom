@@ -26,9 +26,9 @@ MainLoop::MainLoop()
     window.SetTargetFPS(60);
     SetExitKey(0);
 
-    processes.push_back(std::make_unique<Scene>());
     processes.push_back(std::make_unique<InputProcessor>());
     processes.push_back(std::make_unique<RendererDefault>());
+    processes.push_back(std::make_unique<Scene>());
 
     return;
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "GUI.hpp"
 #include "enum.h"
 BETTER_ENUM(TOOL, int,
     SELECT,
@@ -17,4 +18,7 @@ namespace Tool {
     void Pan() __attribute__((weak));
     void Create() __attribute__((weak));
     void Interact() __attribute__((weak));
+
+    extern GUITYPE createChoice;
+    extern bool createFlag;
 }
