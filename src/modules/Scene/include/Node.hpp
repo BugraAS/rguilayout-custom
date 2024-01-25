@@ -32,7 +32,7 @@ class Node{
          */
         inline Node* getParent(){return parent;}
 
-        Vector2 getPos();
+        Vector2 getGPos();
 
          /**
          * @brief Sets the parent node of the current node.

@@ -16,6 +16,12 @@
 #include "sunny/style_sunny.h"
 #include "terminal/style_terminal.h"
 
+void GuiCrossair(Vector2 pos){
+    Color color = GetColor(GuiGetStyle(DEFAULT, BORDER_COLOR_FOCUSED));
+    Vector2 sDim = {GetScreenWidth(), GetScreenHeight()};
+    GuiDrawRectangle(RAYGUI_CLITERAL(Rectangle){ 0, pos.y, sDim.x, 1 }, 0, BLANK, color);
+    GuiDrawRectangle(RAYGUI_CLITERAL(Rectangle){ pos.x, 0, 1, sDim.y }, 0, BLANK, color);
+}
 
 // Toggle Group control, returns toggled button codepointIndex
 // Text should be in the form "label1;tooltop1;label2;tooltip2;.."

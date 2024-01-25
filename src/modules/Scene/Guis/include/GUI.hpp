@@ -35,11 +35,14 @@ class GUI{
     inline const char* getTypeName() const {return type._to_string();}
     inline Node* getParent(){return parent;}
 
+    Vector2 getGPos();
     void setParent(Node* parent);
     void offsetPos(Vector2 delta);
     void offsetDim(Vector2 delta);
     void setPos(Vector2 pos);
+    Vector2 getPos();
     void setDim(Vector2 size);
+    Vector2 getDim();
 
     inline GUI(GUITYPE type): type(type), rectangle(), label(type._to_string()) {}
     GUI() = delete;

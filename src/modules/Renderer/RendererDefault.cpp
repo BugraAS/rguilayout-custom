@@ -19,16 +19,17 @@ void RendererDefault::process() {
   BeginDrawing();
     ClearBackground(raygui::getStyleColor());
 
-    if(G::state != STATE::BASE) raygui::GuiLock();
+    if(G::state._value != STATE::BASE) raygui::GuiLock();
     Workspace::Draw();
 
     BottomMenu::Draw();
     RightMenu::Draw();
     LeftMenu::Draw();
     TopMenu::Draw();
-    if(G::state != STATE::BASE) raygui::GuiUnlock();
 
-    if (G::state == STATE::EXITING) {
+    raygui::GuiUnlock();
+
+    if (G::state._value == STATE::EXITING) {
       int result = raygui::GuiMessageBox(
           Rectangle{GetScreenWidth() / 2.0f - 320 / 2.0f,
                     GetScreenHeight() / 2.0f - 120 / 2.0f, 320, 120},

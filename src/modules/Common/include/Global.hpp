@@ -3,6 +3,7 @@
 #include "State.hpp"
 #include "tool.hpp"
 namespace G {
-    extern STATE::ENUM state;
+    extern STATE state;
     extern TOOL curTool;
+    extern void (*tools[TOOL::NUM_TOOLS])();
 }

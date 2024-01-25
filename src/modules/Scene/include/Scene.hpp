@@ -19,6 +19,8 @@ public:
      */
     static void addNode(Node* n);
 
+    static void addGui(GUI* g);
+
      /**
      * @brief Gets the root node of the scene.
      * @return The root node of the scene.

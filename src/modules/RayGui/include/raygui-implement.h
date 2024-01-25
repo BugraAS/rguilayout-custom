@@ -33,6 +33,7 @@ Color getStyleColor();
 void setFontSize(int size);
 void setStyle(GUI_STYLE styleId);
 
+void GuiCrossair(Vector2 pos);
 void GuiTabBarNoClose(Rectangle bounds, const char **text, int count, int *active);
 int GuiPMSpinner(Rectangle bounds, const char *text, int *value, int minValue, int maxValue, bool editMode);
 // Text should be in the form "label1;tooltop1;label2;tooltip2;.."

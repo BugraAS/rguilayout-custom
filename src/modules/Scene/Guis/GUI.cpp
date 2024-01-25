@@ -1,5 +1,21 @@
 #include "GUI.hpp"
+#include "raylib.h"
+#include "raylib-wrap.hpp"
 #include <memory>
+
+Vector2 GUI::getGPos(){
+    Vector2 temp = getPos();
+    return parent ? temp + parent->getGPos() : temp ;
+}
+
+Vector2 GUI::getPos(){
+    Rectangle temp = getRectangle();
+    return {temp.x,temp.y};
+}
+Vector2 GUI::getDim(){
+    Rectangle temp = getRectangle();
+    return {temp.width,temp.height};
+}
 
 void GUI::setParent(Node* parent){
     if(parent == this->parent)
@@ -10,8 +26,7 @@ void GUI::setParent(Node* parent){
 }
 
 GUI::~GUI(){
-    if(parent)
-        setParent(nullptr);
+    setParent(nullptr);
 }
 
 void GUI::offsetPos(Vector2 delta){

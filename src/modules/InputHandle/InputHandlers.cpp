@@ -4,7 +4,7 @@
 #include "State.hpp"
 #include "raylib.h"
 
-static void EXITING_ESCAPE(){ //BUG: This never gets called for some reason?
+static void EXITING_ESCAPE(){
     G::state = STATE::BASE;
 }
 static void EXITING_ENTER(){

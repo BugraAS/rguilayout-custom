@@ -53,13 +53,13 @@ public:
      * @param keyCode The key code to be mapped.
      * @param eventType The input event type to be associated with the key.
      */
-    static void mapKey(STATE::ENUM state, int keyCode, InputHandler handler);
+    static void mapKey(STATE state, int keyCode, InputHandler handler);
 
     /**
      * @brief Unmap a key, removing it from the keyMap.
      * @param keyCode The key code to be unmapped.
      */
-    static void unmapKey(STATE::ENUM state, int keyCode);
+    static void unmapKey(STATE state, int keyCode);
 
     /**
      * @brief Clear all key mappings from the keyMap.

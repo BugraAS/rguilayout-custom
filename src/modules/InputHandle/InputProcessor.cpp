@@ -22,15 +22,22 @@ void InputProcessor::process(){
         if(handler)
             handler();
     }
+
+    if(G::state._value == STATE::BASE){
+        void (*tool)() = G::tools[G::curTool];
+        if(tool)
+            tool();
+    }
+
     if(WindowShouldClose())
         G::state = STATE::EXITING;
 }
 
-void InputProcessor::mapKey(STATE::ENUM state, int keyCode, InputHandler handler){
+void InputProcessor::mapKey(STATE state, int keyCode, InputHandler handler){
     singleton->keyMap[state][keyCode] = {handler};
 }
 
-void InputProcessor::unmapKey(STATE::ENUM state, int keyCode) {
+void InputProcessor::unmapKey(STATE state, int keyCode) {
     singleton->keyMap[state].erase(keyCode);
 }
 

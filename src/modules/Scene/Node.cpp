@@ -4,8 +4,8 @@
 #include <vector>
 #include "raylib-wrap.hpp"
 
-Vector2 Node::getPos(){
-    return isOrphan() ? pos : parent->getPos() + pos;
+Vector2 Node::getGPos(){
+    return isOrphan() ? pos : parent->getGPos() + pos;
 }
 
 /**
