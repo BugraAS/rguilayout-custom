@@ -1,8 +1,10 @@
 #include "raygui-implement.h"
 #include "raylib.h"
 
+#define RAYGUI_GRID_ALPHA                 0.1f
 #define RAYGUI_IMPLEMENTATION
 #include "raygui.h"
+#undef RAYGUI_IMPLEMENTATION
 
 #include "ashes/style_ashes.h"
 #include "bluish/style_bluish.h"

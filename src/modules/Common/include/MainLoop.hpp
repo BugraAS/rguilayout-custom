@@ -2,6 +2,7 @@
 
 //Intentionally didn't implement a singleton baseclass.
 #include "Runnable.hpp"
+#include "Scene.hpp"
 #include "Window.hpp"
 #include <memory>
 #include <vector>
@@ -11,6 +12,7 @@ public:
 private:
     static MainLoop* singleton;
     std::vector<std::unique_ptr<Runnable>> processes;
+    std::unique_ptr<Scene> scene;
     bool isRunning;
 public:
     static MainLoop *getSingleton();

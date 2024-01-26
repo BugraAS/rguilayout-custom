@@ -18,6 +18,7 @@ Scene *Scene::singleton=nullptr;
 
 void Scene::process(){
     // TODO: implement interaction mode
+    bool locked = raygui::GuiIsLocked();
     raygui::GuiLock();
 
     std::queue<Node*> queue{};
@@ -32,7 +33,8 @@ void Scene::process(){
             gui->draw();
         }
     }
-    raygui::GuiUnlock();
+    if(!locked)
+        raygui::GuiUnlock();
 }
 /**
  * @brief Default constructor for the Scene class.

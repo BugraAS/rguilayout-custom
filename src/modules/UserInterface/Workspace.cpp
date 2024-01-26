@@ -23,6 +23,8 @@ void Workspace::Draw(){
         raygui::GuiGrid(Rectangle{gOffset.x,gOffset.y,(float)GetScreenWidth()-gOffset.x,(float)GetScreenHeight()-gOffset.y}, nullptr,increment*4, 4, &mouseCell);
     }
     raygui::GuiCrossair(Scene::getRoot()->pos);
+
+    Scene::getSingleton()->process();
   EndScissorMode();
 }
 

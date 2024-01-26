@@ -5,7 +5,7 @@
 void* PString::getData(){
     if (data.empty())
         return nullptr;
-    return data.data();
+    return (void*)data.c_str();
 }
 void PString::setData(void* data){
     this->data = *((std::string*)(data));
