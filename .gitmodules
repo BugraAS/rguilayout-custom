@@ -1,9 +1,6 @@
 [submodule "src/deps/raygui"]
 	path = src/deps/raygui
 	url = https://github.com/raysan5/raygui
-[submodule "src/deps/raylib"]
-	path = src/deps/raylib
-	url = https://github.com/raysan5/raylib
 [submodule "src/deps/raylib-cpp"]
 	path = src/deps/raylib-cpp
 	url = https://github.com/RobLoach/raylib-cpp
