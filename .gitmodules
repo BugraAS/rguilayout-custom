@@ -7,3 +7,6 @@
 [submodule "src/tests/deps/googletest"]
 	path = src/tests/deps/googletest
 	url = https://github.com/google/googletest
+[submodule "src/deps/raylib"]
+	path = src/deps/raylib
+	url = https://github.com/raysan5/raylib
