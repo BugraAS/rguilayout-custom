@@ -20,6 +20,7 @@ class Node{
         std::string name{"Dingleberg"};
         Vector2 pos{0.0f, 0.0f};
         //TODO: ADD visibility conditions based on some resource
+        //TODO: ADD scale factor
     protected:
         std::vector<std::unique_ptr<Node>> children{};
         std::vector<std::unique_ptr<GUI>> guis{};

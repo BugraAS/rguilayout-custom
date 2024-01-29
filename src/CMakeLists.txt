@@ -2,7 +2,18 @@ cmake_minimum_required(VERSION 3.25.0)
 
 project(rayGuiLayoutEditor LANGUAGES C CXX)
 
+set(MISC_DIRECTORY misc)
+
+add_custom_target(copy_misc ALL
+	COMMAND ${CMAKE_COMMAND} -E copy_directory
+	${PROJECT_SOURCE_DIR}/${MISC_DIRECTORY}
+	${CMAKE_BINARY_DIR}/${MISC_DIRECTORY}
+	COMMENT "Copying misc into binary dir"
+)
+
 add_executable(${PROJECT_NAME} "")
+
+add_dependencies(${PROJECT_NAME} copy_misc)
 
 add_subdirectory(deps)
 add_subdirectory(modules)
@@ -25,7 +36,7 @@ target_sources(
 
 # Web Configurations
 if (${PLATFORM} STREQUAL "Web")
-	# set(WEB_SHELL_FILE ${MISC_DIRECTORY}/minshell.html)
+	set(WEB_SHELL_FILE ${MISC_DIRECTORY}/minshell.html)
     set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "index")
     set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".html")
 	# set(EMSCRIPTEN_DIR ${CMAKE_TOOLCHAIN_FILE})
@@ -39,7 +50,7 @@ if (${PLATFORM} STREQUAL "Web")
 		# "--preload-file=${RESOURCE_DIRECTORY}"
 #		"-sMAX_WEBGL_VERSION=2"
 		"-sGL_ENABLE_GET_PROC_ADDRESS"
-		# $<$<NOT:$<CONFIG:Debug>>:--shell-file=${WEB_SHELL_FILE}>
+		$<$<NOT:$<CONFIG:Debug>>:--shell-file=${WEB_SHELL_FILE}>
 		)
 endif()
 

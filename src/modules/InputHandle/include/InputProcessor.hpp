@@ -5,7 +5,8 @@
 #pragma once
 
 #include <map>
-#include <functional>
+#include <vector>
+#include "Keymap.hpp"
 #include "Runnable.hpp"
 #include "State.hpp"
 
@@ -29,7 +30,9 @@ typedef void (*InputHandler)();
 class InputProcessor : public Runnable {
 private:
     static InputProcessor* singleton; ///< Static pointer to the singleton instance.
-    std::map<int, InputHandler> keyMap[STATE::NUM_STATES]; ///< Map to store key mappings.
+    std::map<int, KEYMAP::_enumerated> keyMap[STATE::NUM_STATES]; ///< Map to store key mappings.
+    std::vector<int> inversekeyMap[STATE::NUM_STATES][KEYMAP::NUM_MAPS];
+    static InputHandler handles[STATE::NUM_STATES][KEYMAP::NUM_MAPS];
 
 public:
     /**
@@ -53,13 +56,13 @@ public:
      * @param keyCode The key code to be mapped.
      * @param eventType The input event type to be associated with the key.
      */
-    static void mapKey(STATE state, int keyCode, InputHandler handler);
+    static void mapKey(STATE state, KEYMAP map, int keyCode);
 
     /**
      * @brief Unmap a key, removing it from the keyMap.
      * @param keyCode The key code to be unmapped.
      */
-    static void unmapKey(STATE state, int keyCode);
+    static void unmapKey(STATE state, KEYMAP map, int keyCode);
 
     /**
      * @brief Clear all key mappings from the keyMap.
