@@ -5,18 +5,8 @@
 #include <memory>
 
 Rectangle GUI::getGRectangle(){
-    Vector2 pos = getGPos();
-    Rectangle rec = getRectangle();
-    rec.x = pos.x;
-    rec.y = pos.y;
-    return rec;
+    return isOrphan() ? getRectangle() : parent->recurseRec(getRectangle());
 }
-
-Vector2 GUI::getGPos(){
-    Vector2 temp = getPos();
-    return parent ? temp + parent->getGPos() : temp ;
-}
-
 Vector2 GUI::getPos(){
     Rectangle temp = getRectangle();
     return {temp.x,temp.y};

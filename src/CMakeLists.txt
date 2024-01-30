@@ -49,7 +49,7 @@ if (${PLATFORM} STREQUAL "Web")
 		"-sALLOW_MEMORY_GROWTH"
 		# "--preload-file=${RESOURCE_DIRECTORY}"
 #		"-sMAX_WEBGL_VERSION=2"
-		"-sGL_ENABLE_GET_PROC_ADDRESS"
+		# "-sGL_ENABLE_GET_PROC_ADDRESS"
 		$<$<NOT:$<CONFIG:Debug>>:--shell-file=${WEB_SHELL_FILE}>
 		)
 endif()

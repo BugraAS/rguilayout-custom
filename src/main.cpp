@@ -1,17 +1,21 @@
 #include "MainLoop.hpp"
-#include "raylib.h"
-#include "Window.hpp"
-#include <cstdio>
-#include <iostream>
 
-#include "raygui-implement.h"
+#ifdef PLATFORM_WEB
+    #include "emscripten/emscripten.h"
+    #include <emscripten.h>
+    #include <emscripten/html5.h>
+#endif // PLATFORM_WEB
+
 
 int main(int argc, const char** argv) {
 
     MainLoop loop{};
 
-    while(!MainLoop::ShouldClose()){
+    #ifdef PLATFORM_DESKTOP
+    while(!MainLoop::ShouldClose())
         MainLoop::Update();
-    }
+    #else
+    emscripten_set_main_loop(MainLoop::Update, 0, true);
+    #endif // PLATFORM_DESKTOP
     return 0;
 }

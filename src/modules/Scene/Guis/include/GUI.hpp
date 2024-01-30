@@ -37,9 +37,9 @@ class GUI{
     inline GUITYPE getType() const {return type;}
     inline const char* getTypeName() const {return type._to_string();}
     inline Node* getParent(){return parent;}
+    inline bool isOrphan(){return parent == nullptr;}
 
     Rectangle getGRectangle();
-    Vector2 getGPos();
     void setParent(Node* parent);
     void offsetPos(Vector2 delta);
     void offsetDim(Vector2 delta);

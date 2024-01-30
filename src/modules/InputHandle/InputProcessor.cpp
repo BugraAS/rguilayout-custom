@@ -27,8 +27,6 @@ void InputProcessor::process(){
         if(handler)
             handler();
     }
-    if(IsKeyPressed(KEY_ENTER))
-        printf("YOU PRESSED ENTER!\n");
 
     if(WindowShouldClose())
         G::state = STATE::EXITING;

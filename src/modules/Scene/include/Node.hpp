@@ -21,6 +21,7 @@ class Node{
         Vector2 pos{0.0f, 0.0f};
         //TODO: ADD visibility conditions based on some resource
         //TODO: ADD scale factor
+        float scale = 1.0f;
     protected:
         std::vector<std::unique_ptr<Node>> children{};
         std::vector<std::unique_ptr<GUI>> guis{};
@@ -47,6 +48,11 @@ class Node{
          * @return A pointer to the found child node, or nullptr if not found.
          */
         Node* findChild(std::string name);
+
+        inline Rectangle recurseRec(Rectangle rec){return isOrphan() ? transformRec(rec) : recurseRec(transformRec(rec)) ;}
+        inline Rectangle transformRec(Rectangle rec){return {rec.x*scale + pos.x,rec.y*scale + pos.y,rec.width*scale,rec.height*scale};}
+        inline void setScale(float scale){this->scale = scale;}
+        inline void setPos(Vector2 pos){this->pos = pos;}
 
         /**
          * @brief Gets the vector of children nodes.
