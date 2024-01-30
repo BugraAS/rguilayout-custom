@@ -34,6 +34,7 @@ void setFontSize(int size);
 float getFontSize();
 void setStyle(GUI_STYLE styleId);
 
+void GuiSelection(Rectangle bounds, float thickness);
 void GuiCrossair(Vector2 pos);
 void GuiTabBarNoClose(Rectangle bounds, const char **text, int count, int *active);
 int GuiPMSpinner(Rectangle bounds, const char *text, int *value, int minValue, int maxValue, bool editMode);

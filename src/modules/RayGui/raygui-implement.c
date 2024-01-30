@@ -22,6 +22,14 @@ void _GuiTooltip(Rectangle controlRec){
     GuiTooltip(controlRec);
 }
 
+void GuiSelection(Rectangle bounds, float thickness){
+    Color color = GetColor(GuiGetStyle(DEFAULT, BORDER_COLOR_FOCUSED));
+    GuiDrawRectangle((Rectangle){ bounds.x, bounds.y, bounds.width, thickness }, 0, BLANK, color);
+    GuiDrawRectangle((Rectangle){ bounds.x, bounds.y + bounds.height - thickness, bounds.width, thickness }, 0, BLANK, color);
+    GuiDrawRectangle((Rectangle){ bounds.x, bounds.y, thickness , bounds.height }, 0, BLANK, color);
+    GuiDrawRectangle((Rectangle){ bounds.x + bounds.width - thickness, bounds.y, thickness , bounds.height }, 0, BLANK, color);
+}
+
 void GuiCrossair(Vector2 pos){
     Color color = GetColor(GuiGetStyle(DEFAULT, BORDER_COLOR_FOCUSED));
     Vector2 sDim = {GetScreenWidth(), GetScreenHeight()};

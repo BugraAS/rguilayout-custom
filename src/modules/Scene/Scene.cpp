@@ -1,4 +1,5 @@
 #include "Scene.hpp"
+#include "Global.hpp"
 #include "LeftMenu.hpp"
 #include "Node.hpp"
 #include "RendererDefault.hpp"
@@ -8,6 +9,7 @@
 #include "raylib-wrap.hpp"
 #include "raymath.h"
 #include "rlgl.h"
+#include "tool.hpp"
 #include <functional>
 #include <memory>
 #include <queue>
@@ -71,6 +73,7 @@ void Scene::process(){
     };
     BeginMode2D(cam);
 
+    bool selectF = (G::curTool._value == TOOL::SELECT) & (Tool::selectHover != nullptr);
     std::queue<Node*> queue{};
     queue.push(&root);
     for(Node* n=queue.front(); !queue.empty(); n=queue.front()){
@@ -80,7 +83,10 @@ void Scene::process(){
             queue.push(child.get());
         auto& guis = n->getGuis();
         for(auto& gui: guis){
+            bool focused = (gui.get() == Tool::selectHover)&selectF;
+            if(focused) raygui::GuiSetState(raygui::STATE_FOCUSED);
             gui->draw();
+            if(focused) raygui::GuiSetState(raygui::STATE_NORMAL);
         }
     }
     root.pos = offset;

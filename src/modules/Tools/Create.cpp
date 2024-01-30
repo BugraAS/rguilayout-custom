@@ -12,18 +12,6 @@
 #include "raygui-implement.h"
 #include <cmath>
 
-void Tool::Pan(){
-    bool held = IsMouseButtonDown(MOUSE_LEFT_BUTTON);
-    Node* root = Scene::getRoot();
-    if(held){
-        Vector2 delta = GetMouseDelta();
-        root->pos = delta + root->pos;
-    }
-    if(Cursor::IsInputted(CURSOR::SCROLL))
-        root->scale += GetMouseWheelMove()*0.1;
-
-}
-
 static void drawSampleGUI(Rectangle rec, GUITYPE type){
   bool locked =raygui::GuiIsLocked();
   GUI *gui = GUI::_from_type(type);

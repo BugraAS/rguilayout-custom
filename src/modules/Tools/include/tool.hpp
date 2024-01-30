@@ -21,4 +21,7 @@ namespace Tool {
 
     extern GUITYPE createChoice;
     extern bool createFlag;
+
+    extern GUI* selectGUI;
+    extern GUI* selectHover;
 }
