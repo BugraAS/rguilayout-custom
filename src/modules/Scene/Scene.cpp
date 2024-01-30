@@ -4,6 +4,10 @@
 #include "RendererDefault.hpp"
 #include "TopMenu.hpp"
 #include "raygui-implement.h"
+#include "raylib.h"
+#include "raylib-wrap.hpp"
+#include "raymath.h"
+#include "rlgl.h"
 #include <functional>
 #include <memory>
 #include <queue>
@@ -11,15 +15,61 @@
 
 //TODO: Write tests for this class
 
+void Scene::setScale(float scale){
+    singleton->root.scale = scale;
+}
+float Scene::getScale(){
+    return singleton->root.scale;
+}
+Rectangle Scene::getScaledRec(Rectangle rec){
+    float scale = getScale();
+    return {rec.x,rec.y,rec.width*scale,rec.height*scale};
+}
+
 /**
  * @brief The singleton instance of the Scene class.
  */
 Scene *Scene::singleton=nullptr;
+float Scene::initFont=raygui::getFontSize();
+
+// Initialize Matrix mode with (Matrix)
+static void BeginModeMatrix(Matrix mat)
+{
+    rlDrawRenderBatchActive();      // Update and draw internal render batch
+
+    rlLoadIdentity();               // Reset current matrix (modelview)
+
+    // Apply Matrix transformation to modelview
+    rlMultMatrixf(MatrixToFloat(mat));
+}
+
+// Ends Matrix mode with
+static void EndModeMatrix(void)
+{
+    rlDrawRenderBatchActive();      // Update and draw internal render batch
+
+    rlLoadIdentity();               // Reset current matrix (modelview)
+}
 
 void Scene::process(){
     // TODO: implement interaction mode
+    // Node* root = getRoot();
+
     bool locked = raygui::GuiIsLocked();
     raygui::GuiLock();
+
+    float scale = getScale();
+    setScale(1.0f);
+    Vector2 offset = root.pos;
+    root.pos = {};
+
+    Camera2D cam{
+        offset,
+        {},
+        0.0f,
+        scale
+    };
+    BeginMode2D(cam);
 
     std::queue<Node*> queue{};
     queue.push(&root);
@@ -33,6 +83,10 @@ void Scene::process(){
             gui->draw();
         }
     }
+    root.pos = offset;
+    setScale(scale);
+    EndMode2D();
+
     if(!locked)
         raygui::GuiUnlock();
 }

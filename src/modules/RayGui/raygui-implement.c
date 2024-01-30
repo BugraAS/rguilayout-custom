@@ -207,6 +207,9 @@ Color getStyleColor(){
     return GetColor(GuiGetStyle(DEFAULT, BACKGROUND_COLOR));
 }
 
+float getFontSize(){
+    return GuiGetStyle(DEFAULT, TEXT_SIZE);
+}
 void setFontSize(int size){
     GuiSetStyle(DEFAULT, TEXT_SIZE , size);
 }

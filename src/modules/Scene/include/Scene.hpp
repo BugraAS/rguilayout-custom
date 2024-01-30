@@ -2,6 +2,8 @@
 
 #include "Node.hpp"
 #include "Runnable.hpp"
+#include "raygui-implement.h"
+#include "raylib.h"
 #include <vector>
 
 /**
@@ -10,6 +12,7 @@
  */
 class Scene : public Runnable{
 private:
+    static float initFont;
     static Scene *singleton;
     Node root;
 public:
@@ -20,6 +23,10 @@ public:
     static void addNode(Node* n);
 
     static void addGui(GUI* g);
+
+    static void setScale(float scale);
+    static float getScale();
+    static Rectangle getScaledRec(Rectangle rec);
 
      /**
      * @brief Gets the root node of the scene.

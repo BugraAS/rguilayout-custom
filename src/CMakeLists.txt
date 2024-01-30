@@ -34,10 +34,10 @@ target_sources(
 	main.cpp
 )
 
+set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "index")
 # Web Configurations
 if (${PLATFORM} STREQUAL "Web")
 	set(WEB_SHELL_FILE ${MISC_DIRECTORY}/minshell.html)
-    set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "index")
     set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".html")
 	# set(EMSCRIPTEN_DIR ${CMAKE_TOOLCHAIN_FILE})
 	# cmake_path(REMOVE_FILENAME EMSCRIPTEN_DIR)

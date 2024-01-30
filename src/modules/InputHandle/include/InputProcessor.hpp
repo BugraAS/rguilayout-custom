@@ -31,8 +31,8 @@ class InputProcessor : public Runnable {
 private:
     static InputProcessor* singleton; ///< Static pointer to the singleton instance.
     std::map<int, KEYMAP::_enumerated> keyMap[STATE::NUM_STATES]; ///< Map to store key mappings.
-    std::vector<int> inversekeyMap[STATE::NUM_STATES][KEYMAP::NUM_MAPS];
-    static InputHandler handles[STATE::NUM_STATES][KEYMAP::NUM_MAPS];
+    std::vector<int> inversekeyMap[STATE::NUM_STATES][KEYMAP::NUM_INPUTS];
+    static InputHandler handles[STATE::NUM_STATES][KEYMAP::NUM_INPUTS];
 
 public:
     /**
@@ -74,4 +74,5 @@ public:
      * @return Pointer to the singleton instance of InputHandle.
      */
     static inline InputProcessor* getSingleton(){return singleton;}
+
 };

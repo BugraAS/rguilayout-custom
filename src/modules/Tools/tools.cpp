@@ -1,4 +1,5 @@
 #include "Button.hpp"
+#include "Cursor.hpp"
 #include "GUI.hpp"
 #include "Global.hpp"
 #include "Node.hpp"
@@ -13,11 +14,14 @@
 
 void Tool::Pan(){
     bool held = IsMouseButtonDown(MOUSE_LEFT_BUTTON);
+    Node* root = Scene::getRoot();
     if(held){
         Vector2 delta = GetMouseDelta();
-        Node* root = Scene::getRoot();
         root->pos = delta + root->pos;
     }
+    if(Cursor::IsInputted(CURSOR::SCROLL))
+        root->scale += GetMouseWheelMove()*0.1;
+
 }
 
 static void drawSampleGUI(Rectangle rec, GUITYPE type){
@@ -43,20 +47,15 @@ void Tool::Create(){
     if(!createFlag) return;
     if(!CheckCollisionPointRec(GetMousePosition(), Workspace::rec)) return;
 
-    Vector2 rpos = Scene::getRoot()->pos;
-    Vector2 pos = GetMousePosition();
-    float increment = Workspace::increment;
-    Vector2 rel = pos - rpos;
-    rel.x -= std::fmod(rel.x,increment);
-    rel.y -= std::fmod(rel.y,increment);
-    pos = rel + rpos;
+    Vector2 pos = Workspace::posGtoGrid(GetMousePosition());
 
-    Rectangle sample = {
+    Rectangle sample = Scene::getScaledRec({
         pos.x,
         pos.y,
-        RightMenu::width - 24.0f,
+        (RightMenu::width - 24.0f),
         RightMenu::width/2.0f -8,
-    };
+    });
+
     BeginScissorMode(Workspace::rec.x, Workspace::rec.y, Workspace::rec.width, Workspace::rec.height);
     drawSampleGUI(sample, createChoice);
     EndScissorMode();
@@ -66,8 +65,7 @@ void Tool::Create(){
         createFlag = false;
 
         GUI* gui = GUI::_from_type(createChoice);
-        gui->setPos(rel);
-        gui->setDim({sample.width,sample.height});
+        gui->setRectangle(Workspace::recGtoR(sample));
         Scene::addGui(gui);
     }
 }

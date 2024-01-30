@@ -24,7 +24,7 @@ static void BASE_CONFIRM(){//BUG: Keybinds are not working
     printf("You pressed CONFIRM\n");
 }
 
-InputHandler InputProcessor::handles[STATE::NUM_STATES][KEYMAP::NUM_MAPS]{};
+InputHandler InputProcessor::handles[STATE::NUM_STATES][KEYMAP::NUM_INPUTS]{};
 
 InputProcessor::InputProcessor()
 : keyMap(), inversekeyMap()
@@ -33,8 +33,6 @@ InputProcessor::InputProcessor()
 
     mapKey(STATE::BASE, KEYMAP::CONFIRM, KEY_ENTER);
     mapKey(STATE::EXITING, KEYMAP::CONFIRM, KEY_ENTER);
-    mapKey(STATE::BASE, KEYMAP::CANCEL, KEY_Q);
-    mapKey(STATE::EXITING, KEYMAP::CANCEL, KEY_Q);
     mapKey(STATE::BASE, KEYMAP::CANCEL, KEY_ESCAPE);
     mapKey(STATE::EXITING, KEYMAP::CANCEL, KEY_ESCAPE);
 

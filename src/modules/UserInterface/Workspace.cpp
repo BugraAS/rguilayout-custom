@@ -5,6 +5,7 @@
 #include "Scene.hpp"
 #include "TopMenu.hpp"
 #include "raylib.h"
+#include "raylib-wrap.hpp"
 #include "raygui-implement.h"
 #include <cmath>
 
@@ -14,13 +15,14 @@ bool Workspace::gridVisible = true;
 
 void Workspace::Draw(){
   Vector2 rpos = Scene::getRoot()->pos;
-  Vector2 gOffset = { std::fmod(rpos.x,increment*4),std::fmod(rpos.y,increment*4) };
-  if(gOffset.x > rec.x) gOffset.x -= increment*4;
-  if(gOffset.y > rec.y) gOffset.y -= increment*4;
+  float scale = (Scene::getRoot()->scale*increment*4);
+  Vector2 gOffset = { std::fmod(rpos.x,scale),std::fmod(rpos.y,scale) };
+  if(gOffset.x > rec.x) gOffset.x -= scale;
+  if(gOffset.y > rec.y) gOffset.y -= scale;
   static Vector2 mouseCell{};
   BeginScissorMode(rec.x, rec.y, rec.width, rec.height);
     if(gridVisible){
-        raygui::GuiGrid(Rectangle{gOffset.x,gOffset.y,(float)GetScreenWidth()-gOffset.x,(float)GetScreenHeight()-gOffset.y}, nullptr,increment*4, 4, &mouseCell);
+        raygui::GuiGrid(Rectangle{gOffset.x,gOffset.y,(float)GetScreenWidth()-gOffset.x,(float)GetScreenHeight()-gOffset.y}, nullptr,scale, 4, &mouseCell);
     }
     raygui::GuiCrossair(Scene::getRoot()->pos);
 
@@ -35,5 +37,32 @@ void Workspace::Resize(){
     (float)TopMenu::width,
     sDim.x - LeftMenu::width - RightMenu::width,
     sDim.y - TopMenu::width - BottomMenu::width
+  };
+}
+
+Vector2 Workspace::posGtoGrid(Vector2 pos){
+  float scale = increment*Scene::getScale();
+
+  Vector2 rpos = Scene::getRoot()->pos;
+  Vector2 rel = pos - rpos;
+  rel.x -= std::fmod(rel.x,scale);
+  rel.y -= std::fmod(rel.y,scale);
+  return rel + rpos;
+}
+Vector2 Workspace::posGtoR(Vector2 pos){
+  float scale = Scene::getScale();
+  Vector2 rpos = Scene::getRoot()->pos;
+  Vector2 rel = pos - rpos;
+
+  return rel*(1.0f/scale);
+}
+Rectangle Workspace::recGtoR(Rectangle rec){
+  float scale = Scene::getScale();
+  Vector2 pos = posGtoR({rec.x,rec.y});
+  return {
+    pos.x,
+    pos.y,
+    rec.width/scale,
+    rec.height/scale,
   };
 }

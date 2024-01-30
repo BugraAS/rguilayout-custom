@@ -5,5 +5,5 @@
 BETTER_ENUM(KEYMAP, int,
     CONFIRM,
     CANCEL,
-    NUM_MAPS
+    NUM_INPUTS
 )

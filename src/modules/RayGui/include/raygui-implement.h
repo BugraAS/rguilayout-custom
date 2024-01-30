@@ -31,6 +31,7 @@ typedef enum GUI_STYLE GUI_STYLE;
 
 Color getStyleColor();
 void setFontSize(int size);
+float getFontSize();
 void setStyle(GUI_STYLE styleId);
 
 void GuiCrossair(Vector2 pos);
