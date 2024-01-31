@@ -29,6 +29,9 @@ static inline Vector2 operator+(const Vector2& l, const Vector2& r){
 static inline Vector2 operator-(const Vector2& l, const Vector2& r){
     return Vector2Subtract(l, r);
 }
+static inline bool operator==(const Vector2& l, const Vector2& r){
+    return Vector2Equals(l, r);
+}
 static inline Vector2 operator-(const Vector2& l){
     return {-l.x,-l.y};
 }

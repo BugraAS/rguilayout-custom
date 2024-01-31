@@ -26,4 +26,6 @@ namespace Tool {
 
     extern std::set<GUI*> selectGUI;
     extern GUI* selectHover;
+
+    extern bool snapToGrid;
 }

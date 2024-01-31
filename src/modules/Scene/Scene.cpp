@@ -60,7 +60,7 @@ void Scene::process(){
     };
     BeginMode2D(cam);
 
-    bool selectF = (G::curTool._value == TOOL::SELECT) & ((Tool::selectHover != nullptr)|(!Tool::selectGUI.empty()));
+    bool selectF = (G::curTool._value != TOOL::INTERACT) & ((Tool::selectHover != nullptr)|(!Tool::selectGUI.empty()));
     std::queue<Node*> queue{};
     queue.push(&root);
     for(Node* n=queue.front(); !queue.empty(); n=queue.front()){
