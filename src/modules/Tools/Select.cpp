@@ -58,7 +58,6 @@ static void areaSelect(Rectangle area){
                 out.insert(gui.get());
         }
     }
-    if(out.empty()) out.insert(nullptr);
 }
 
 void Tool::Select(){
@@ -102,6 +101,7 @@ void Tool::Select(){
     Rectangle area{pos.x,pos.y, fabs(mouse.x-dragOrig.x),fabs(mouse.y-dragOrig.y)};
     raygui::GuiSelection(area, 5.0f);
     areaSelect(area);
+    if(selectGUI.empty()) selectHover = nullptr;
     dragging = Cursor::IsInputted(CURSOR::HOLD);
     if(!dragging) dragStart = 0.0;
 }
