@@ -34,23 +34,10 @@ Rectangle Scene::getScaledRec(Rectangle rec){
 Scene *Scene::singleton=nullptr;
 float Scene::initFont=raygui::getFontSize();
 
-// Initialize Matrix mode with (Matrix)
-static void BeginModeMatrix(Matrix mat)
-{
-    rlDrawRenderBatchActive();      // Update and draw internal render batch
-
-    rlLoadIdentity();               // Reset current matrix (modelview)
-
-    // Apply Matrix transformation to modelview
-    rlMultMatrixf(MatrixToFloat(mat));
-}
-
-// Ends Matrix mode with
-static void EndModeMatrix(void)
-{
-    rlDrawRenderBatchActive();      // Update and draw internal render batch
-
-    rlLoadIdentity();               // Reset current matrix (modelview)
+static bool isFocused(GUI* gui){
+    if(Tool::selectGUI.empty())
+        return Tool::selectHover == gui;
+    return Tool::selectGUI.find(gui) != Tool::selectGUI.end();
 }
 
 void Scene::process(){
@@ -73,7 +60,7 @@ void Scene::process(){
     };
     BeginMode2D(cam);
 
-    bool selectF = (G::curTool._value == TOOL::SELECT) & (Tool::selectHover != nullptr);
+    bool selectF = (G::curTool._value == TOOL::SELECT) & ((Tool::selectHover != nullptr)|(!Tool::selectGUI.empty()));
     std::queue<Node*> queue{};
     queue.push(&root);
     for(Node* n=queue.front(); !queue.empty(); n=queue.front()){
@@ -83,7 +70,7 @@ void Scene::process(){
             queue.push(child.get());
         auto& guis = n->getGuis();
         for(auto& gui: guis){
-            bool focused = (gui.get() == Tool::selectHover)&selectF;
+            bool focused = (isFocused(gui.get()))&selectF;
             if(focused) raygui::GuiSetState(raygui::STATE_FOCUSED);
             gui->draw();
             if(focused) raygui::GuiSetState(raygui::STATE_NORMAL);

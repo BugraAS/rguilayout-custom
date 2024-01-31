@@ -15,6 +15,9 @@ static void EXITING_CONFIRM(){
 }
 static void BASE_CANCEL(){
     switch (G::curTool._value) {
+        case TOOL::SELECT:
+            Tool::selectGUI.clear();
+            break;
         case TOOL::CREATE:
             Tool::createFlag = false;
             break;

@@ -10,7 +10,7 @@ bool Cursor::IsInputted(CURSOR::_enumerated input){
         case CURSOR::HOLD:
             return !IsMouseButtonPressed(MOUSE_LEFT_BUTTON) & IsMouseButtonDown(MOUSE_LEFT_BUTTON);
         case CURSOR::RELEASE:
-            return IsMouseButtonDown(MOUSE_LEFT_BUTTON);
+            return IsMouseButtonUp(MOUSE_LEFT_BUTTON);
         case CURSOR::SCROLL:
             return 0.0f != GetMouseWheelMove();
         default:

@@ -2,6 +2,8 @@
 
 #include "GUI.hpp"
 #include "enum.h"
+#include <set>
+#include <vector>
 BETTER_ENUM(TOOL, int,
     SELECT,
     MOVE,
@@ -22,6 +24,6 @@ namespace Tool {
     extern GUITYPE createChoice;
     extern bool createFlag;
 
-    extern GUI* selectGUI;
+    extern std::set<GUI*> selectGUI;
     extern GUI* selectHover;
 }
