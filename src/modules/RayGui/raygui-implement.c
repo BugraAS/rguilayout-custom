@@ -125,8 +125,8 @@ int GuiPMSpinner(Rectangle bounds, const char *text, int *value, int minValue, i
         }
     }
 
-    if (GuiButton(leftButtonBound, "-")) tempValue--;
-    if (GuiButton(rightButtonBound, "+")) tempValue++;
+    if (GuiButton(leftButtonBound, "-")) tempValue>>=1;
+    if (GuiButton(rightButtonBound, "+")) tempValue<<=1;
 
     if (!editMode)
     {

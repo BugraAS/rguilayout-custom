@@ -1,5 +1,7 @@
 #include "TopMenu.hpp"
 #include "Global.hpp"
+#include "State.hpp"
+#include "Workspace.hpp"
 #include "myutils.hpp"
 #include "raygui-implement.h"
 #include "raylib.h"
@@ -11,13 +13,14 @@ int TopMenu::width = 64;
 void TopMenu::Draw() {
   Vector2 sDim{(float)GetScreenWidth(), (float)GetScreenHeight()};
   float bDim{width*(1/3.0f)}; // button size
-  float margin{width*(1/12.0f)}; // Margin from edge
+  float unit{width*(1/12.0f)}; // Margin from edge
+  bool locked = raygui::GuiIsLocked();
 
   //background GuiPanel
   raygui::GuiPanel(Rectangle{0.0f, 0.0f, sDim.x, (float)width}, nullptr);
 
   // Separator line
-  raygui::GuiLine({margin, width*0.5f, sDim.x - 2*margin,0.0f}, nullptr);
+  raygui::GuiLine({unit, width*0.5f, sDim.x - 2*unit,0.0f}, nullptr);
 
   // Buttons for tools
   static int curTool = G::curTool;
@@ -30,8 +33,23 @@ void TopMenu::Draw() {
     ICON_STR(144) ";Interact"
     ;
   raygui::GuiToggleGroupTooltip(
-    Rectangle{ 2*bDim + margin, margin+width/2.0f, bDim, bDim},
+    Rectangle{ 2*bDim + unit, unit+width/2.0f, bDim, bDim},
     buttons, &curTool
   );
   if(curTool != G::curTool) G::curTool =TOOL::_from_integral(curTool);
+
+  //Increment control
+  int increment = Workspace::increment;
+  static bool writingInc = false;
+  if(writingInc) raygui::GuiUnlock();
+  bool result = raygui::GuiPMSpinner({sDim.x - unit - bDim*4, unit + width/2.0f, bDim*4, bDim}, nullptr, &increment, 1, 64, writingInc);
+  if(result){
+    writingInc^=true;
+    if(writingInc)
+      G::state._value = STATE::TYPING;
+    else
+      G::state._value = STATE::BASE;
+  }
+  Workspace::increment = increment;
+  if(locked) raygui::GuiLock();
 }
