@@ -13,7 +13,7 @@
  * It serves as a building block for creating hierarchical structures of nodes in a scene.
  */
 
-class GUI; //fix circular dependency problem
+class GUI; //fix circular dependency problemtransformRec(rec)
 
 class Node{
     public:
@@ -49,7 +49,7 @@ class Node{
          */
         Node* findChild(std::string name);
 
-        inline Rectangle recurseRec(Rectangle rec){return isOrphan() ? transformRec(rec) : recurseRec(transformRec(rec)) ;}
+        inline Rectangle recurseRec(Rectangle rec){return isOrphan() ? transformRec(rec) : parent->recurseRec(transformRec(rec)) ;}
         inline Rectangle transformRec(Rectangle rec){return {rec.x*scale + pos.x,rec.y*scale + pos.y,rec.width*scale,rec.height*scale};}
         inline void setScale(float scale){this->scale = scale;}
         inline void setPos(Vector2 pos){this->pos = pos;}

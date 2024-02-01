@@ -4,6 +4,13 @@
 #include "raylib-wrap.hpp"
 #include <memory>
 
+Vector3 GUI::getTransform(){
+    if(isOrphan())
+        return {0,0,1};
+    Rectangle trans = parent->recurseRec({0,0,1,1});
+    return {trans.x, trans.y, trans.width};
+}
+
 Rectangle GUI::getGRectangle(){
     return isOrphan() ? getRectangle() : parent->recurseRec(getRectangle());
 }

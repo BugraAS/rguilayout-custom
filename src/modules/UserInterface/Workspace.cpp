@@ -14,8 +14,8 @@ float Workspace::increment = 4.0f;
 bool Workspace::gridVisible = true;
 
 void Workspace::Draw(){
-  Vector2 rpos = Scene::getRoot()->pos;
-  float scale = (Scene::getRoot()->scale*increment*4);
+  Vector2 rpos = Scene::getOffset();
+  float scale = (Scene::getZoom()*increment*4);
   Vector2 gOffset = { std::fmod(rpos.x,scale),std::fmod(rpos.y,scale) };
   if(gOffset.x > rec.x) gOffset.x -= scale;
   if(gOffset.y > rec.y) gOffset.y -= scale;
@@ -24,7 +24,7 @@ void Workspace::Draw(){
     if(gridVisible){
         raygui::GuiGrid(Rectangle{gOffset.x,gOffset.y,(float)GetScreenWidth()-gOffset.x,(float)GetScreenHeight()-gOffset.y}, nullptr,scale, 4, &mouseCell);
     }
-    raygui::GuiCrossair(Scene::getRoot()->pos);
+    raygui::GuiCrossair(rpos);
 
     Scene::getSingleton()->process();
   EndScissorMode();
@@ -43,7 +43,7 @@ void Workspace::Resize(){
 Vector2 Workspace::posGtoGrid(Vector2 pos){
   float scale = increment*Scene::getScale();
 
-  Vector2 rpos = Scene::getRoot()->pos;
+  Vector2 rpos = Scene::getOffset();
   Vector2 rel = pos - rpos;
   rel.x -= std::fmod(rel.x,scale);
   rel.y -= std::fmod(rel.y,scale);
@@ -51,7 +51,7 @@ Vector2 Workspace::posGtoGrid(Vector2 pos){
 }
 Vector2 Workspace::posGtoR(Vector2 pos){
   float scale = Scene::getScale();
-  Vector2 rpos = Scene::getRoot()->pos;
+  Vector2 rpos = Scene::getOffset();
   Vector2 rel = pos - rpos;
 
   return rel*(1.0f/scale);

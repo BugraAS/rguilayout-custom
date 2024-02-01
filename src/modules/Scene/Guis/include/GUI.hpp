@@ -39,7 +39,9 @@ class GUI{
     inline Node* getParent(){return parent;}
     inline bool isOrphan(){return parent == nullptr;}
 
+    Vector3 getTransform();
     Rectangle getGRectangle();
+    // void setGRectangle(Rectangle rec); //TODO: later
     void setParent(Node* parent);
     void offsetPos(Vector2 delta);
     void offsetDim(Vector2 delta);

@@ -5,5 +5,6 @@ target_sources(${PROJECT_NAME} PRIVATE
     Create.cpp
     Move.cpp
     Pan.cpp
+    Resize.cpp
     Select.cpp
 )

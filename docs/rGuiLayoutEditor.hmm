@@ -49,4 +49,34 @@ rGuiLayoutEditor
 			BASE
 			SAVING
 			EXITING
+	Tools
+		Select
+			single select
+				click directly on the object
+			area select
+				click drag to create rectangle
+			continuous select
+				hold ctrl or shift
+				can be used along single and area select
+		Move
+		Resize
+			Local Resize
+				snap to grid
+				move by increment
+			Group Resize
+				snap to grid
+				move by increment
+		Pan
+			zoom
+			drag
+			should allow quick swap to pan
+		Create
+			continuous placement
+			can cancel placement (esc)
+		Interact
+			clicking tabs/lists to change state
+			scrolling lists
+			cannot uses inbuilt parameter class (doesn't track deletion)
+				new Special class for change-able parameters
+					not owned by GUI itself
 

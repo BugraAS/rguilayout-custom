@@ -8,14 +8,13 @@
 
 void Tool::Pan(){
     bool held = IsMouseButtonDown(MOUSE_LEFT_BUTTON);
-    Node* root = Scene::getRoot();
     if(held){
         Vector2 delta = GetMouseDelta();
-        root->pos = delta + root->pos;
+        Scene::deltaOffset(delta);
     }
     if(Cursor::IsInputted(CURSOR::SCROLL)){
-        root->scale *= 1.0f + GetMouseWheelMove()*0.01;
-        root->scale = Clamp(root->scale, 0.25f, 2.0f);
+        Scene::deltaZoom(1.0f + GetMouseWheelMove()*0.01);
+        Scene::setZoom(Clamp(Scene::getZoom(), 0.25f, 2.0f));
     }
 
 }

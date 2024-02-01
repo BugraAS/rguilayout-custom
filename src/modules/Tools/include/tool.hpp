@@ -28,4 +28,6 @@ namespace Tool {
     extern GUI* selectHover;
 
     extern bool snapToGrid;
+
+    extern Rectangle resizeArea;
 }

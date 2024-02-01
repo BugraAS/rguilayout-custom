@@ -41,6 +41,14 @@ static GUI* getHover(Vector2 pos){
     return out;
 }
 static void areaSelect(Rectangle area){
+    Vector2 offset = -Scene::getOffset();
+    float zoom = 1/Scene::getZoom();
+    area = {
+        (area.x + offset.x)*zoom,
+        (area.y + offset.y)*zoom,
+        area.width*zoom,
+        area.height*zoom,
+    };
     std::set<GUI*> &out = Tool::selectGUI;
     out.clear();
     std::queue<Node*> queue{};
@@ -82,7 +90,7 @@ void Tool::Select(){
             dragStart = 0.0;
     }
 
-    selectHover = getHover(mouse);
+    selectHover = getHover(Workspace::posGtoR(mouse));
 
     //select single
     if(!dragging){

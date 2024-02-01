@@ -18,10 +18,10 @@
 //TODO: Write tests for this class
 
 void Scene::setScale(float scale){
-    singleton->root.scale = scale;
+    singleton->zoom = scale;
 }
 float Scene::getScale(){
-    return singleton->root.scale;
+    return singleton->zoom;
 }
 Rectangle Scene::getScaledRec(Rectangle rec){
     float scale = getScale();
@@ -48,9 +48,6 @@ void Scene::process(){
     raygui::GuiLock();
 
     float scale = getScale();
-    setScale(1.0f);
-    Vector2 offset = root.pos;
-    root.pos = {};
 
     Camera2D cam{
         offset,
@@ -76,8 +73,6 @@ void Scene::process(){
             if(focused) raygui::GuiSetState(raygui::STATE_NORMAL);
         }
     }
-    root.pos = offset;
-    setScale(scale);
     EndMode2D();
 
     if(!locked)
@@ -90,7 +85,7 @@ Scene::Scene()
 : root("root")
 {
     singleton = this;
-    root.pos = {LeftMenu::width*(1.33f),TopMenu::width*(1.33f) };
+    offset = {LeftMenu::width*(1.33f),TopMenu::width*(1.33f) };
 }
 
 /**

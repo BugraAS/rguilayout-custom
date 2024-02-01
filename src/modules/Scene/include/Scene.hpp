@@ -4,6 +4,7 @@
 #include "Runnable.hpp"
 #include "raygui-implement.h"
 #include "raylib.h"
+#include "raylib-wrap.hpp"
 #include <vector>
 
 /**
@@ -15,8 +16,17 @@ private:
     static float initFont;
     static Scene *singleton;
     Node root;
+    float zoom = 1;
+    Vector2 offset{};
 public:
-      /**
+    static inline void deltaOffset(Vector2 delta){singleton->offset = singleton->offset + delta;}
+    static inline void setOffset(Vector2 off){singleton->offset = off;}
+    static inline Vector2 getOffset(){return singleton->offset;}
+
+    static inline void deltaZoom(float delta){singleton->zoom *= delta;}
+    static inline float getZoom(){return singleton->zoom;}
+    static inline void setZoom(float zoom){singleton->zoom = zoom;}
+    /**
      * @brief Adds a node to the scene.
      * @param n The node to be added.
      */
