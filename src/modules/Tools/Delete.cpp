@@ -1,14 +1,15 @@
 #include "Scene.hpp"
 #include "tool.hpp"
+#include <vector>
 void Tool::Delete(){
     groupChoosing = false;
-    selectGUI.clear();
 
     if(selectedGui){
         for(GUI* gui: selectGUI){
             gui->setParent(nullptr);
             delete gui;
         }
+        selectGUI.clear();
         return;
     }
     //selected NODE

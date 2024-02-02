@@ -4,6 +4,10 @@
 #include "raylib-wrap.hpp"
 #include <memory>
 
+bool GUI::childOf(Node *n){
+    return isOrphan()? false :parent->childOf(n);
+}
+
 Vector3 GUI::getTransform(){
     if(isOrphan())
         return {0,0,1};

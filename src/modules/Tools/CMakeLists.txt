@@ -9,4 +9,5 @@ target_sources(${PROJECT_NAME} PRIVATE
     Pan.cpp
     Resize.cpp
     Select.cpp
+    Ungroup.cpp
 )

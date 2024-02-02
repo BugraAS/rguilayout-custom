@@ -40,6 +40,7 @@ class GUI{
     inline Node* getParent(){return parent;}
     inline bool isOrphan(){return parent == nullptr;}
 
+    bool childOf(Node* n);
     Vector3 getTransform();
     Rectangle getGRectangle();
     // void setGRectangle(Rectangle rec); //TODO: later
