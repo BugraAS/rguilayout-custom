@@ -79,4 +79,7 @@ rGuiLayoutEditor
 			cannot uses inbuilt parameter class (doesn't track deletion)
 				new Special class for change-able parameters
 					not owned by GUI itself
+	Undo
+		Copy the whole scenetree
+		Record each action and how to undo them
 

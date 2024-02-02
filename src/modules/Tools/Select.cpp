@@ -13,6 +13,9 @@
 
 std::set<GUI*> Tool::selectGUI{};
 GUI* Tool::selectHover = nullptr;
+Node* Tool::selectNODE = nullptr;
+bool Tool::selectedSingle = false;
+bool Tool::selectedGui = true;
 
 static inline bool CheckContainRec(Rectangle big, Rectangle small){
     return
@@ -96,11 +99,15 @@ void Tool::Select(){
     if(!dragging){
         if(Cursor::IsInputted(CURSOR::CLICK)){
             selectGUI.clear();
-            if(selectHover)
+            if(selectHover){
                 selectGUI.insert(selectHover);
+            }
+            selectedGui = true;
+            selectedSingle = !selectGUI.empty();
         }
         return;
     }
+    selectedSingle = false;
     //select multiple
     Vector2 pos = {
         std::min(dragOrig.x,mouse.x),
@@ -109,7 +116,10 @@ void Tool::Select(){
     Rectangle area{pos.x,pos.y, fabs(mouse.x-dragOrig.x),fabs(mouse.y-dragOrig.y)};
     raygui::GuiSelection(area, 5.0f);
     areaSelect(area);
+
     if(selectGUI.empty()) selectHover = nullptr;
+    else selectedGui = true;
+
     dragging = Cursor::IsInputted(CURSOR::HOLD);
     if(!dragging) dragStart = 0.0;
 }

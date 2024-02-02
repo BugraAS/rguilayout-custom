@@ -12,12 +12,15 @@
 
 RendererDefault::RendererDefault() {
   Workspace::Resize();
+  LeftMenu::Resize();
+
   raygui::GuiEnableTooltip();
 }
 
 void RendererDefault::process() {
   if(IsWindowResized()){
     Workspace::Resize();
+    LeftMenu::Resize();
   }
   BeginDrawing();
     ClearBackground(raygui::getStyleColor());

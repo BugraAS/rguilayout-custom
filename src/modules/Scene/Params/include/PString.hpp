@@ -6,9 +6,11 @@ class PString : public Param{
     private:
     std::string data{};
     public:
-    virtual void* getData() override;
-    virtual void setData(void* data) override;
+    void* getData() override;
+    void setData(void* data) override;
 
+    inline void setString(std::string data){this->data = data;}
+    inline std::string getString(){return this->data;}
     inline PString(std::string str): Param(ParamTYPE::STRING), data(str) {}
     inline PString(): PString("") {}
     PString(PString &&) = delete;

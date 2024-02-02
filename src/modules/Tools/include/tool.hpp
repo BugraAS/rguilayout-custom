@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GUI.hpp"
+#include "Node.hpp"
 #include "enum.h"
 #include <set>
 #include <vector>
@@ -25,7 +26,10 @@ namespace Tool {
     extern bool createFlag;
 
     extern std::set<GUI*> selectGUI;
+    extern Node* selectNODE;
     extern GUI* selectHover;
+    extern bool selectedSingle;
+    extern bool selectedGui;
 
     extern bool snapToGrid;
 

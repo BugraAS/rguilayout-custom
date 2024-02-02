@@ -19,8 +19,7 @@ class Node{
     public:
         std::string name{"Dingleberg"};
         Vector2 pos{0.0f, 0.0f};
-        //TODO: ADD visibility conditions based on some resource
-        //TODO: ADD scale factor
+        bool collapsed = false; // for scene tree view
         float scale = 1.0f;
     protected:
         std::vector<std::unique_ptr<Node>> children{};
@@ -28,11 +27,16 @@ class Node{
         //TODO: ADD modifications vector
         Node* parent = nullptr;
     public:
+        //TODO: ADD visibility conditions based on some resource
+        //TODO: replace this function with conditions
+        inline bool isVisible(){return true;}
+
         /**
          * @brief Gets the parent node of the current node.
          * @return A pointer to the parent node.
          */
         inline Node* getParent(){return parent;}
+        inline bool childOf(Node* n){return this == n ? true :(isOrphan()? false : parent->childOf(n));}
 
         Vector2 getGPos();
 

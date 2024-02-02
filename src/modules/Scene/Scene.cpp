@@ -62,15 +62,27 @@ void Scene::process(){
     queue.push(&root);
     for(Node* n=queue.front(); !queue.empty(); n=queue.front()){
         queue.pop();
+        if(!n->isVisible())
+            continue;
         auto& childs = n->getChildren();
         for(auto& child: childs)
             queue.push(child.get());
         auto& guis = n->getGuis();
-        for(auto& gui: guis){
-            bool focused = (isFocused(gui.get()))&selectF;
-            if(focused) raygui::GuiSetState(raygui::STATE_FOCUSED);
-            gui->draw();
-            if(focused) raygui::GuiSetState(raygui::STATE_NORMAL);
+        if(Tool::selectedGui){
+            for(auto& gui: guis){
+                bool focused = (isFocused(gui.get()))&selectF;
+                if(focused) raygui::GuiSetState(raygui::STATE_FOCUSED);
+                gui->draw();
+                if(focused) raygui::GuiSetState(raygui::STATE_NORMAL);
+            }
+        }else{
+            bool focused = n->childOf(Tool::selectNODE);
+            for(auto& gui: guis){
+                if(focused) raygui::GuiSetState(raygui::STATE_FOCUSED);
+                gui->draw();
+                if(focused) raygui::GuiSetState(raygui::STATE_NORMAL);
+            }
+
         }
     }
     EndMode2D();

@@ -29,8 +29,9 @@ class GUI{
 
     virtual std::vector<Param*> getParams() = 0;
     virtual void draw() = 0;
+    virtual GUI* copy() = 0;
 
-    inline Rectangle getRectangle() {return *static_cast<Rectangle*>(rectangle.getData());}
+    inline Rectangle getRectangle() {return rectangle.getRectangle();}
     inline void setRectangle(Rectangle rectangle) {this->rectangle.setData(&rectangle);}
     inline std::string getLabel() const {return label;}
     inline void setLabel(std::string label) {this->label = label;}

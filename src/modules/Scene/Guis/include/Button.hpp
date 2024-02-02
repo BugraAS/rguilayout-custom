@@ -6,8 +6,9 @@ class Button : public GUI{
     private:
     PString text;
     public:
-    virtual std::vector<Param*> getParams() override;
-    virtual void draw() override;
+    std::vector<Param*> getParams() override;
+    void draw() override;
+    GUI* copy() override;
 
     inline Button() : GUI(GUITYPE::BUTTON), text(type._to_string()) {}
 };
