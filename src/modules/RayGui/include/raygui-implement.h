@@ -34,12 +34,15 @@ void setFontSize(int size);
 float getFontSize();
 void setStyle(GUI_STYLE styleId);
 
+int GuiToggleRanked(Rectangle bounds, const char *text, bool *active, int rank);
 void GuiSelection(Rectangle bounds, float thickness);
 void GuiCrossair(Vector2 pos);
 void GuiTabBarNoClose(Rectangle bounds, const char **text, int count, int *active);
 int GuiPMSpinner(Rectangle bounds, const char *text, int *value, int minValue, int maxValue, bool editMode);
 // Text should be in the form "label1;tooltop1;label2;tooltip2;.."
 int GuiToggleGroupTooltip(Rectangle bounds, const char *text, int *active);
+int GuiButtonGroupTooltip(Rectangle bounds, const char *text);
+int GuiButtonTooltip(Rectangle bounds, const char *text);
 void _GuiTooltip(Rectangle controlRec);
 #if defined(__cplusplus)
 }}

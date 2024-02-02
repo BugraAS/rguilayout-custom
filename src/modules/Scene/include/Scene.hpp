@@ -5,6 +5,7 @@
 #include "raygui-implement.h"
 #include "raylib.h"
 #include "raylib-wrap.hpp"
+#include <memory>
 #include <vector>
 
 /**
@@ -15,7 +16,7 @@ class Scene : public Runnable{
 private:
     static float initFont;
     static Scene *singleton;
-    Node root;
+    std::unique_ptr<Node> root;
     float zoom = 1;
     Vector2 offset{};
 public:

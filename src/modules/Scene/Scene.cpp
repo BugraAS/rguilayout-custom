@@ -59,7 +59,7 @@ void Scene::process(){
 
     bool selectF = (G::curTool._value != TOOL::INTERACT) & ((Tool::selectHover != nullptr)|(!Tool::selectGUI.empty()));
     std::queue<Node*> queue{};
-    queue.push(&root);
+    queue.push(root.get());
     for(Node* n=queue.front(); !queue.empty(); n=queue.front()){
         queue.pop();
         if(!n->isVisible())
@@ -94,7 +94,7 @@ void Scene::process(){
  * @brief Default constructor for the Scene class.
  */
 Scene::Scene()
-: root("root")
+: root(new Node("root"))
 {
     singleton = this;
     offset = {LeftMenu::width*(1.33f),TopMenu::width*(1.33f) };
@@ -128,5 +128,5 @@ void Scene::addGui(GUI *g){
  * @return The root node of the scene.
  */
 Node* Scene::getRoot(){
-    return &singleton->root;
+    return singleton->root.get();
 }

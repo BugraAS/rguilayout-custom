@@ -4,6 +4,7 @@
 
 STATE G::state{STATE::BASE};
 TOOL G::curTool{TOOL::SELECT};
+TOOL G::lastTool{TOOL::SELECT};
 void (*G::tools[TOOL::NUM_TOOLS])(){
     Tool::Select,
     Tool::Move,
@@ -11,4 +12,6 @@ void (*G::tools[TOOL::NUM_TOOLS])(){
     Tool::Pan,
     Tool::Create,
     Tool::Interact,
+    Tool::Group,
+    Tool::Ungroup,
 };

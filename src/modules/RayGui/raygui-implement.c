@@ -22,6 +22,116 @@ void _GuiTooltip(Rectangle controlRec){
     GuiTooltip(controlRec);
 }
 
+int GuiToggleRanked(Rectangle bounds, const char *text, bool *active, int rank)
+{
+    int result = 0;
+    GuiState state = guiState;
+
+    bool temp = false;
+    if (active == NULL) active = &temp;
+
+    // Update control
+    //--------------------------------------------------------------------
+    if ((state != STATE_DISABLED) && !guiLocked && !guiSliderDragging)
+    {
+        Vector2 mousePoint = GetMousePosition();
+
+        // Check toggle button state
+        if (CheckCollisionPointRec(mousePoint, bounds))
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) state = STATE_PRESSED;
+            else if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
+            {
+                state = STATE_NORMAL;
+                *active = !(*active);
+            }
+            else state = STATE_FOCUSED;
+        }
+    }
+    //--------------------------------------------------------------------
+
+    // Draw control
+    //--------------------------------------------------------------------
+    float indent = guiFont.recs[0].width*(float)GuiGetStyle(DEFAULT, TEXT_SIZE)/guiFont.baseSize + GuiGetStyle(DEFAULT, TEXT_SPACING);
+    Rectangle tBounds = {
+        bounds.x + indent*rank, bounds.y,
+        bounds.width - indent*rank, bounds.height
+    };
+    if (state == STATE_NORMAL)
+    {
+        GuiDrawRectangle(bounds, GuiGetStyle(TOGGLE, BORDER_WIDTH), GetColor(GuiGetStyle(TOGGLE, ((*active)? BORDER_COLOR_PRESSED : (BORDER + state*3)))), GetColor(GuiGetStyle(TOGGLE, ((*active)? BASE_COLOR_PRESSED : (BASE + state*3)))));
+        GuiDrawText(text, GetTextBounds(TOGGLE, tBounds), GuiGetStyle(TOGGLE, TEXT_ALIGNMENT), GetColor(GuiGetStyle(TOGGLE, ((*active)? TEXT_COLOR_PRESSED : (TEXT + state*3)))));
+    }
+    else
+    {
+        GuiDrawRectangle(bounds, GuiGetStyle(TOGGLE, BORDER_WIDTH), GetColor(GuiGetStyle(TOGGLE, BORDER + state*3)), GetColor(GuiGetStyle(TOGGLE, BASE + state*3)));
+        GuiDrawText(text, GetTextBounds(TOGGLE, tBounds), GuiGetStyle(TOGGLE, TEXT_ALIGNMENT), GetColor(GuiGetStyle(TOGGLE, TEXT + state*3)));
+    }
+
+    if (state == STATE_FOCUSED) GuiTooltip(bounds);
+    //--------------------------------------------------------------------
+
+    return result;
+}
+
+int GuiButtonTooltip(Rectangle bounds, const char *text){
+    #if !defined(RAYGUI_TOGGLEGROUP_MAX_ITEMS)
+        #define RAYGUI_TOGGLEGROUP_MAX_ITEMS    32
+    #endif
+
+    int result = 0;
+
+    // Get substrings items from text (items pointers)
+    int rows[RAYGUI_TOGGLEGROUP_MAX_ITEMS] = { 0 };
+    int itemCount = 0;
+    const char **items = GuiTextSplit(text, ';', &itemCount, rows);
+
+    int prevRow = rows[0];
+    if(itemCount != 2)
+        return 0;
+    GuiSetTooltip(items[1]);
+    result = GuiButton(bounds, items[0]);
+    GuiSetTooltip(NULL);
+    return result;
+}
+int GuiButtonGroupTooltip(Rectangle bounds, const char *text){
+    #if !defined(RAYGUI_TOGGLEGROUP_MAX_ITEMS)
+        #define RAYGUI_TOGGLEGROUP_MAX_ITEMS    32
+    #endif
+
+    int result = -1;
+    float initBoundsX = bounds.x;
+
+    bool toggle = false;    // Required for individual toggles
+
+    // Get substrings items from text (items pointers)
+    int rows[RAYGUI_TOGGLEGROUP_MAX_ITEMS] = { 0 };
+    int itemCount = 0;
+    const char **items = GuiTextSplit(text, ';', &itemCount, rows);
+
+    int prevRow = rows[0];
+
+    for (int i = 0; i < itemCount/2; i++)
+    {
+        if (prevRow != rows[i])
+        {
+            bounds.x = initBoundsX;
+            bounds.y += (bounds.height + GuiGetStyle(TOGGLE, GROUP_PADDING));
+            prevRow = rows[i];
+        }
+
+        GuiSetTooltip(items[2*i+1]);
+        toggle = false;
+        GuiToggle(bounds, items[2*i], &toggle);
+        if (toggle) result = i;
+        GuiSetTooltip(NULL);
+
+        bounds.x += (bounds.width + GuiGetStyle(TOGGLE, GROUP_PADDING));
+    }
+
+    return result;
+}
+
 void GuiSelection(Rectangle bounds, float thickness){
     Color color = GetColor(GuiGetStyle(DEFAULT, BORDER_COLOR_FOCUSED));
     GuiDrawRectangle((Rectangle){ bounds.x, bounds.y, bounds.width, thickness }, 0, BLANK, color);

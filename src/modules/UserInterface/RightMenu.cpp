@@ -19,6 +19,8 @@ static void (*toolMenu[TOOL::NUM_TOOLS])(){
   SelectMenu,
   CreateMenu,
   SelectMenu,
+  SelectMenu,
+  SelectMenu,
 };
 
 // TODO: Make panel width adjust on runtime

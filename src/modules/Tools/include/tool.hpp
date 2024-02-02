@@ -12,6 +12,8 @@ BETTER_ENUM(TOOL, int,
     PAN,
     CREATE,
     INTERACT,
+    GROUP,
+    UNGROUP,
     NUM_TOOLS
 )
 namespace Tool {
@@ -21,6 +23,10 @@ namespace Tool {
     void Pan() __attribute__((weak));
     void Create() __attribute__((weak));
     void Interact() __attribute__((weak));
+    void Group() __attribute__((weak));
+    void Ungroup() __attribute__((weak));
+
+    void Delete();
 
     extern GUITYPE createChoice;
     extern bool createFlag;
@@ -34,4 +40,6 @@ namespace Tool {
     extern bool snapToGrid;
 
     extern Rectangle resizeArea;
+
+    extern bool groupChoosing;
 }

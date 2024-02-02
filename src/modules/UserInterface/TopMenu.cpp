@@ -24,19 +24,25 @@ void TopMenu::Draw() {
 
   // Buttons for tools
   static int curTool = G::curTool;
-  const char* buttons = // turns out its impossible to convert enums into integral values in compile time.
-    ICON_STR(21) ";Select;"
-    ICON_STR(68) ";Move;"
-    ICON_STR(53) ";Scale;"
-    ICON_STR(19) ";Pan;"
-    ICON_STR(79) ";Create element;"
-    ICON_STR(144) ";Interact"
+  const char* tools = // turns out its impossible to convert enums into integral values in compile time.
+        ICON_STR(21) ";Select"
+    ";" ICON_STR(68) ";Move"
+    ";" ICON_STR(53) ";Scale"
+    ";" ICON_STR(19) ";Pan"
+    ";" ICON_STR(79) ";Create element"
+    ";" ICON_STR(144) ";Interact"
+    ";" ICON_STR(174) ";Group"
+    ";" ICON_STR(175) ";Ungroup"
     ;
   raygui::GuiToggleGroupTooltip(
     Rectangle{ 2*bDim + unit, unit+width/2.0f, bDim, bDim},
-    buttons, &curTool
+    tools, &curTool
   );
   if(curTool != G::curTool) G::curTool =TOOL::_from_integral(curTool);
+
+  //Delete button
+  if( raygui::GuiButtonTooltip({(TOOL::NUM_TOOLS + 4)*bDim + unit, unit + width/2.0f,bDim,bDim}, ICON_STR(143) ";Delete"))
+    Tool::Delete();
 
   //Increment control
   int increment = Workspace::increment;

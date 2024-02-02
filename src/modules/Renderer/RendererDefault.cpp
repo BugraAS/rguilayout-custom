@@ -38,6 +38,7 @@ void RendererDefault::process() {
     if(G::state._value == STATE::BASE){
       void (*tool)() = G::tools[G::curTool];
       if(tool) tool();
+      G::lastTool = G::curTool;
     }
 
     if (G::state._value == STATE::EXITING) {
