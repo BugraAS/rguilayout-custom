@@ -49,6 +49,14 @@ rGuiLayoutEditor
 			BASE
 			SAVING
 			EXITING
+		gui properties are handled statically to figure out if they still exist
+		Node condition
+			How to refer objects?
+				by name?
+					no duplicate names
+				by reference?
+			how to compute the conditions
+				simple equality only?
 	Tools
 		Select
 			single select

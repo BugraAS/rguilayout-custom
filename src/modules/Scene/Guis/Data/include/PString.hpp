@@ -11,7 +11,7 @@ class PString : public Param{
 
     inline void setString(std::string data){this->data = data;}
     inline std::string getString(){return this->data;}
-    inline PString(std::string str): Param(ParamTYPE::STRING), data(str) {}
+    inline PString(std::string str): Param(PARAM::STRING), data(str) {}
     inline PString(): PString("") {}
     PString(PString &&) = delete;
     PString(const PString &) = delete;

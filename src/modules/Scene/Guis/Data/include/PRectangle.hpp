@@ -11,7 +11,7 @@ class PRectangle : public Param{
 
     inline void setRectangle(Rectangle data){this->data = data;}
     inline Rectangle getRectangle(){return this->data;}
-    inline PRectangle(Rectangle rec): Param(ParamTYPE::RECTANGLE), data(rec) {}
+    inline PRectangle(Rectangle rec): Param(PARAM::RECTANGLE), data(rec) {}
     inline PRectangle(): PRectangle(Rectangle{}) {}
     PRectangle(PRectangle &&) = delete;
     PRectangle(const PRectangle &) = delete;

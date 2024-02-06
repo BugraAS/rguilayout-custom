@@ -23,9 +23,6 @@ void LeftMenu::Resize(){
 }
 
 void LeftMenu::Draw() {
-  float font = raygui::getFontSize();
-  float iHeight = font*1.2f; // item height
-
   raygui::GuiPanel(rec, nullptr);
   SceneTree();
 }
@@ -95,6 +92,7 @@ static void handleChoosen(int choice){
       if(found) break;
   }
 
+  bool toggle = (static_cast<Node*>(res) == Tool::selectNODE) & !Tool::selectedGui;
   Tool::selectGUI.clear();
   Tool::selectNODE = nullptr;
   if(isGui){
@@ -107,7 +105,8 @@ static void handleChoosen(int choice){
   Tool::selectedSingle = true;
   Tool::selectedGui = false;
   Tool::selectNODE = static_cast<Node*>(res);
-  Tool::selectNODE->collapsed ^= true;
+  if(toggle)
+    Tool::selectNODE->collapsed ^= true;
 }
 
 static void fillData(std::string *arr, bool *active, int *ranks){
@@ -190,20 +189,7 @@ static void SceneTree(){
   //TODO: toggle selection based on gui click
   if(choosen != -1)
     handleChoosen(choosen);
-  /*
-  if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) & CheckCollisionPointRec(GetMousePosition(), sRec)) {
-    int found = -1;
-    for(int i: GUITYPE::_values())
-      if(CheckCollisionPointRec(GetMousePosition(), treeView[i])){
-        found = i;
-        break;
-      }
-    if(found != -1){
-      Tool::createFlag = true;
-      Tool::createChoice = GUITYPE::_from_integral_unchecked(found);
-    }
-  }
-  */
+
   if(!locked)
     raygui::GuiUnlock();
 }

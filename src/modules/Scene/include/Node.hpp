@@ -17,7 +17,7 @@ class GUI; //fix circular dependency problemtransformRec(rec)
 
 class Node{
     public:
-        std::string name{"Dingleberg"};
+        std::string name{"Node"};
         Vector2 pos{0.0f, 0.0f};
         bool collapsed = false; // for scene tree view
         float scale = 1.0f;
@@ -52,6 +52,9 @@ class Node{
          * @return A pointer to the found child node, or nullptr if not found.
          */
         Node* findChild(std::string name);
+        bool hasChild(std::string label);
+        void addChild(Node* n);
+        void addGui(GUI* g);
 
         inline Rectangle recurseRec(Rectangle rec){return isOrphan() ? transformRec(rec) : parent->recurseRec(transformRec(rec)) ;}
         inline Rectangle transformRec(Rectangle rec){return {rec.x*scale + pos.x,rec.y*scale + pos.y,rec.width*scale,rec.height*scale};}
@@ -71,6 +74,7 @@ class Node{
          * @return True if the node has no parent, false otherwise.
          */
         inline bool isOrphan(){return parent == nullptr;}
+
 
         /**
          * @brief Default constructor for Node.

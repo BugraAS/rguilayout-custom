@@ -5,3 +5,5 @@ target_sources(${PROJECT_NAME} PRIVATE
     GUI.cpp
     Button.cpp
 )
+
+add_subdirectory(Data)

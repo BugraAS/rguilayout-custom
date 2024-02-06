@@ -17,7 +17,7 @@ BETTER_ENUM(GUITYPE, int,
 
 class Node; //fix circular dependency problem
 
-class GUI{
+class GUI{ //TODO: rename this to Gui for conistency
     protected:
     std::string label;
     PRectangle rectangle;

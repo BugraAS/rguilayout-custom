@@ -4,19 +4,17 @@
 #include <cstddef>
 #include <string>
 
-BETTER_ENUM(ParamTYPE, int,
+BETTER_ENUM(PARAM, int,
     RECTANGLE,
     STRING,
     STRING_ARRAY,
     INT,
-    INT_PTR,
-    BOOL,
-    BOOL_PTR
+    BOOL
 )
 class Param
 {
 private:
-    const ParamTYPE type;
+    const PARAM type;
     std::string label;
 public:
     virtual void* getData() = 0;
@@ -24,10 +22,10 @@ public:
 
     inline std::string getLabel() const {return label;}
     inline void setLabel(std::string label) {this->label = label;}
-    inline ParamTYPE getType() const {return type;}
+    inline PARAM getType() const {return type;}
     inline const char* getTypeName() const {return type._to_string();}
 
-    inline Param(ParamTYPE type):type(type), label(type._to_string()) {}
+    inline Param(PARAM type):type(type), label(type._to_string()) {}
     Param() = delete;
     Param(Param &&) = delete;
     Param(const Param &) = delete;

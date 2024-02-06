@@ -1,8 +1,37 @@
 #include "Node.hpp"
 #include <algorithm>
 #include <memory>
+#include <string>
 #include <vector>
 #include "raylib-wrap.hpp"
+
+void Node::addChild(Node* n){
+    int index = 0;
+    std::string name = n->name;
+    while(hasChild(name)){
+        index++;
+        name = n->name + "_" + std::to_string(index);
+    }
+    n->name=name;
+    children.push_back(std::unique_ptr<Node>(n));
+}
+void Node::addGui(GUI* g){
+    int index = 0;
+    std::string name = g->getLabel();
+    while(hasChild(name)){
+        index++;
+        name = g->getLabel() + "_" + std::to_string(index);
+    }
+    g->setLabel(name);
+    guis.push_back(std::unique_ptr<GUI>(g));
+}
+
+bool Node::hasChild(std::string label){
+    bool result = false;
+    result |= std::find_if(children.begin(), children.end(), [&label](const std::unique_ptr<Node> &child){return child->name == label;}) != children.end();
+    result |= std::find_if(guis.begin(), guis.end(), [&label](const std::unique_ptr<GUI> &gui){return gui->getLabel() == label;}) != guis.end();
+    return result;
+}
 
 Vector2 Node::getGPos(){
     return isOrphan() ? pos : parent->getGPos() + pos;
@@ -58,5 +87,5 @@ void Node::setParent(Node* parent){
     }
     this->parent = parent;
     if(parent != nullptr)
-        parent->getChildren().push_back(std::unique_ptr<Node>(this));
+        parent->addChild(this);
 }

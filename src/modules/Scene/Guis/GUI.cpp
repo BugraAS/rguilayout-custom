@@ -33,7 +33,7 @@ void GUI::setParent(Node* parent){
     if(this->parent)
         this->parent->removeGui(this);
     if(parent)
-        parent->getGuis().push_back(std::unique_ptr<GUI>(this));
+        parent->addGui(this);
     this->parent = parent;
 }
 
